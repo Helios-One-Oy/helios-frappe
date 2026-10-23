@@ -1,0 +1,26 @@
+{
+  "actions": [],
+  "allow_rename": 0,
+  "autoname": "hash",
+  "creation": "2026-10-23 00:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": ["purchase_order", "supplier", "supplier_email", "status", "schedule_date", "confirmation_source", "confirmed_at", "message_id", "note"],
+  "fields": [
+    {"fieldname": "purchase_order", "fieldtype": "Link", "in_list_view": 1, "label": "Purchase Order", "options": "Purchase Order", "reqd": 1},
+    {"fieldname": "supplier", "fieldtype": "Link", "label": "Supplier", "options": "Supplier", "read_only": 1},
+    {"fieldname": "supplier_email", "fieldtype": "Data", "label": "Supplier Email", "read_only": 1},
+    {"default": "Pending", "fieldname": "status", "fieldtype": "Select", "in_list_view": 1, "label": "Status", "options": "Pending\nConfirmed\nRejected\nExpired\nRevoked", "read_only": 1},
+    {"fieldname": "schedule_date", "fieldtype": "Date", "label": "Schedule Date", "read_only": 1},
+    {"fieldname": "confirmation_source", "fieldtype": "Select", "label": "Confirmation Source", "options": "link\nemail\nmanual", "read_only": 1},
+    {"fieldname": "confirmed_at", "fieldtype": "Datetime", "label": "Confirmed At", "read_only": 1},
+    {"fieldname": "message_id", "fieldtype": "Data", "label": "Email Message ID", "read_only": 1},
+    {"fieldname": "note", "fieldtype": "Small Text", "label": "Note", "read_only": 1}
+  ],
+  "module": "Helios Order Visibility",
+  "name": "Supplier PO Confirmation",
+  "permissions": [{"create": 1, "delete": 1, "read": 1, "role": "Helios Order Visibility Manager", "write": 1}, {"read": 1, "role": "Helios Order Visibility User"}],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "track_changes": 1
+}

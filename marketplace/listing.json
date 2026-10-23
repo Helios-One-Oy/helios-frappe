@@ -1,0 +1,17 @@
+{
+  "title": "Helios Order Visibility",
+  "app_name": "helios_order_visibility",
+  "summary": "Supplier confirmations and customer order tracking for ERPNext",
+  "long_description": "Supplier PO confirmation uses an expiring signed link or a constrained email reply. Confirmations write the decision and schedule date to the Purchase Order and its open lines. Customer links expose a filtered Sales Order or Delivery Note snapshot. The Supplier OTD Script Report and late-lines workspace shortcut help purchasing teams act on overdue lines.",
+  "category": "Manufacturing",
+  "license": "MIT",
+  "publisher": "Helios One Oy",
+  "website_url": "https://heliosone.fi",
+  "support_url": "https://github.com/Helios-One-Oy/helios-frappe/issues",
+  "documentation_url": "https://github.com/Helios-One-Oy/helios-frappe/blob/main/docs/operations.md",
+  "terms_url": "https://github.com/Helios-One-Oy/helios-frappe/blob/main/docs/terms-of-service.md",
+  "privacy_url": "https://github.com/Helios-One-Oy/helios-frappe/blob/main/docs/privacy-policy.md",
+  "logo_source": "logo.svg",
+  "screenshots": [],
+  "publishing_status": "draft; do not submit"
+}

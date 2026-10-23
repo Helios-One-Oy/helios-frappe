@@ -1,0 +1,39 @@
+{
+  "sample": true,
+  "notice": "Fictional data for local tests and demonstrations. Never load into a customer site.",
+  "company": {"doctype": "Company", "company_name": "Fictional Northstar Manufacturing Ltd"},
+  "supplier": {
+    "doctype": "Supplier",
+    "supplier_name": "Northstar Precision (sample)",
+    "supplier_group": "All Supplier Groups",
+    "supplier_type": "Company",
+    "email_id": "purchasing@example.invalid"
+  },
+  "item": {
+    "doctype": "Item",
+    "item_code": "SAMPLE-BRACKET",
+    "item_name": "Sample machined bracket",
+    "item_group": "All Item Groups",
+    "stock_uom": "Nos",
+    "is_stock_item": 1
+  },
+  "purchase_order": {
+    "doctype": "Purchase Order",
+    "name": "PO-SAMPLE-0042",
+    "transaction_date": "2026-10-23",
+    "items": [{"item_code": "SAMPLE-BRACKET", "qty": 25, "rate": 18.5, "schedule_date": "2026-11-04"}]
+  },
+  "sales_order": {
+    "doctype": "Sales Order",
+    "name": "SO-SAMPLE-1007",
+    "transaction_date": "2026-10-23",
+    "delivery_date": "2026-11-14",
+    "items": [{"item_code": "SAMPLE-BRACKET", "qty": 10, "rate": 42.0}]
+  },
+  "delivery_note": {
+    "doctype": "Delivery Note",
+    "name": "DN-SAMPLE-1007",
+    "posting_date": "2026-11-12",
+    "items": [{"item_code": "SAMPLE-BRACKET", "qty": 5, "against_sales_order": "SO-SAMPLE-1007"}]
+  }
+}

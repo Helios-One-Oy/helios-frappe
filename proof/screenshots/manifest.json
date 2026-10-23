@@ -1,0 +1,12 @@
+{
+  "status": "not-captured",
+  "reason": "No real Frappe/ERPNext UI proof is present in this repository.",
+  "required": [
+    {"file": "supplier-confirmation-1280.png", "viewport": "1280x720"},
+    {"file": "supplier-confirmation-390.png", "viewport": "390x844"},
+    {"file": "customer-tracking-1280.png", "viewport": "1280x720"},
+    {"file": "customer-tracking-390.png", "viewport": "390x844"},
+    {"file": "supplier-otd-1280.png", "viewport": "1280x720"},
+    {"file": "supplier-otd-390.png", "viewport": "390x844"}
+  ]
+}

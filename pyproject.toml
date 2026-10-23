@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "helios-order-visibility"
+version = "0.1.0"
+description = "Supplier PO confirmations and customer order visibility for ERPNext"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Helios One Oy"}]
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=7.0"]
+
+# Frappe Cloud uses this declaration when it validates an app against a bench.
+# Keep the app compatible with the supported ERPNext/Frappe 15 and 16 lines;
+# the runtime code only uses APIs available in both lines.
+[tool.bench.frappe-dependencies]
+frappe = ">=15.0.0,<17.0.0"
+erpnext = ">=15.0.0,<17.0.0"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"

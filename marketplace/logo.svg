@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Helios Order Visibility logo">
+  <rect width="256" height="256" rx="48" fill="#1f4b99"/>
+  <circle cx="128" cy="128" r="74" fill="none" stroke="#ffffff" stroke-width="18"/>
+  <path d="M78 128h100M128 78v100" stroke="#f5c451" stroke-width="18" stroke-linecap="round"/>
+</svg>
