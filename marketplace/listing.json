@@ -23,5 +23,6 @@
     "proof/version-16/screenshots/late-lines-1280.png",
     "proof/version-16/screenshots/late-lines-390.png"
   ],
-  "publishing_status": "submitted to Frappe Cloud Marketplace review (see SUBMISSIONS.md in the outreach repo)"
+  "publishing_status": "ready; waiting for the GitHub connection on Frappe Cloud (see SUBMISSIONS.md in the outreach repo)",
+  "logo_png": "marketplace/logo-512.png"
 }
