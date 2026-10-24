@@ -79,6 +79,7 @@ if [[ "${DAYTONA_CHILD:-}" == 1 ]]; then
   find "$ROOT/proof/live" -type f \( -name '*.log' -o -name '*.json' -o -name '*.html' -o -name '*.txt' \) -print0 | xargs -0 -r sed -E -i \
     -e 's/(token=)[^&" <>]+/\1REDACTED_TOKEN/g' \
     -e 's/(name="token" value=")[^"]+/\1REDACTED_TOKEN/g' \
+    -e 's/(name="csrf" value=")[^"]+/\1REDACTED_TOKEN/g' \
     -e 's/("(supplier_token|customer_token)"[[:space:]]*:[[:space:]]*")[^"]+/\1REDACTED_TOKEN/g'
   echo "screenshots=PASS" | tee -a "$LOG"
   set +e
