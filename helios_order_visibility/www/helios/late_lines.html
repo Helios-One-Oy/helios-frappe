@@ -1,4 +1,5 @@
-<!doctype html>
+{# Frappe renders website pages without autoescaping; every value below comes from ERPNext records. #}
+{% autoescape true %}<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -57,7 +58,7 @@
   <section class="hv-card">
     <h1>Late supplier lines</h1>
     <p class="hv-sub">Open purchase-order lines past their required-by date as of {{ today }}.</p>
-{% if error %}<div class="hv-notice error">{{ error|e }}</div>{% elif rows %}
+{% if error %}<div class="hv-notice error">{{ error }}</div>{% elif rows %}
     <table class="hv-stack"><thead><tr><th>Purchase order</th><th>Supplier</th><th>Item</th><th class="num">Qty</th><th>Required by</th><th class="num">Days late</th></tr></thead><tbody>
     {% for row in rows %}<tr><td data-label="Purchase order">{{ row.purchase_order }}</td><td data-label="Supplier">{{ row.supplier }}</td><td data-label="Item">{{ row.item_code }}</td><td data-label="Qty" class="num">{{ row.qty_display }}</td><td data-label="Required by" class="hv-late">{{ row.schedule_display }}</td><td data-label="Days late" class="num hv-late"><strong>{{ row.days_late }}</strong></td></tr>{% endfor %}
     </tbody></table>
@@ -68,3 +69,4 @@
 </main>
 </body>
 </html>
+{% endautoescape %}

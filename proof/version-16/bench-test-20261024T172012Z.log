@@ -34,9 +34,9 @@ Downloading python_crontab-2.6.0-py3-none-any.whl (25 kB)
 Downloading requests-2.33.1-py3-none-any.whl (64 kB)
 Downloading semantic_version-2.10.0-py2.py3-none-any.whl (15 kB)
 Downloading uv-0.13.5-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.2 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.2/17.2 MB 461.6 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.2/17.2 MB 396.2 MB/s  0:00:00
 Downloading setuptools-84.2.1-py3-none-any.whl (876 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 876.3/876.3 kB 226.6 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 876.3/876.3 kB 158.2 MB/s  0:00:00
 Downloading honcho-2.0.0-py3-none-any.whl (22 kB)
 Installing collected packages: honcho, uv, setuptools, semantic-version, requests, click, python-crontab, gitpython, frappe-bench
 
@@ -50,9 +50,9 @@ v25.9.0
 python_bin=/usr/local/bin/python3.14
 Starting MariaDB database server: mariadbd.
 Starting redis-server: redis-server.
-2060:C 24 Oct 2026 16:49:35.558 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
-2065:C 24 Oct 2026 16:49:35.564 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
-2077:C 24 Oct 2026 16:49:35.571 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+2070:C 24 Oct 2026 17:20:15.166 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+2075:C 24 Oct 2026 17:20:15.172 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+2084:C 24 Oct 2026 17:20:15.178 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
 Setting Up Environment
 $ uv venv env --seed --python /usr/local/bin/python3.14
 Using CPython 3.14.6 interpreter at: /usr/local/bin/python3.14
@@ -75,7 +75,7 @@ warning " > @frappe/esbuild-plugin-postcss2@0.1.3" has unmet peer dependency "le
 warning " > @frappe/esbuild-plugin-postcss2@0.1.3" has unmet peer dependency "stylus@^0.x".
 warning " > @vue/component-compiler@4.2.4" has unmet peer dependency "vue-template-compiler@*".
 [5/5] Building fresh packages...
-Done in 11.13s.
+Done in 11.32s.
 Found existing apps updating states...
 SUCCESS: Bench /home/daytona/frappe-bench initialized
 Getting erpnext
@@ -106,8 +106,8 @@ warning Workspaces can only be enabled in private projects.
 warning Workspaces can only be enabled in private projects.
 warning Workspaces can only be enabled in private projects.
 [4/4] Building fresh packages...
-Done in 7.82s.
-Done in 8.10s.
+Done in 8.81s.
+Done in 9.11s.
 $ bench build --app erpnext
 Linking /home/daytona/frappe-bench/apps/frappe/frappe/public to ./assets/frappe Linking /home/daytona/frappe-bench/apps/frappe/node_modules to ./assets/frappe/node_modules                                                                                Linking /home/daytona/frappe-bench/apps/erpnext/erpnext/public to ./assets/erpnext                                                                                Linking /home/daytona/frappe-bench/apps/erpnext/node_modules to ./assets/erpnext/node_modules                                                                                ✔ Application Assets Linked                                            
 
@@ -127,16 +127,16 @@ erpnext/dist/js/
 └─ bom_configurator.bundle.YDAM6HVC.js                      10.14 Kb
 
 erpnext/dist/css/
-├─ erpnext-web.bundle.QBVWBQ2G.css                          2.86 Kb
-├─ erpnext.bundle.SLKYNLCV.css                              52.56 Kb
-└─ erpnext_email.bundle.FL4XJZ23.css                        0.56 Kb
+├─ erpnext-web.bundle.BXJ62OZ4.css                          2.86 Kb
+├─ erpnext.bundle.WS7G65MN.css                              52.56 Kb
+└─ erpnext_email.bundle.B4ECEG4G.css                        0.56 Kb
 
 erpnext/dist/css-rtl/
-├─ erpnext-web.bundle.CJLACSEN.css                          2.87 Kb
-├─ erpnext.bundle.7OBTYQNF.css                              52.56 Kb
-└─ erpnext_email.bundle.B6GYG3R6.css                        0.56 Kb
+├─ erpnext-web.bundle.KY42TW6R.css                          2.87 Kb
+├─ erpnext.bundle.DVVX2JW2.css                              52.56 Kb
+└─ erpnext_email.bundle.JFSUP7QG.css                        0.56 Kb
 
- DONE  Total Build Time: 574.073ms
+ DONE  Total Build Time: 572.202ms
 
 
 Running build command for erpnext
@@ -192,22 +192,13 @@ computing gzip size...
 ../erpnext/public/banking/assets/error-banner-CvMol9Ww.js                         357.94 kB │ gzip: 107.83 kB
 ../erpnext/public/banking/assets/index-CPnNkMtB.js                                360.51 kB │ gzip: 104.93 kB
 
-✓ built in 550ms
+✓ built in 628ms
 $ cp ../erpnext/public/banking/index.html ../erpnext/www/banking.html
-Done in 2.43s.
+Done in 2.67s.
 Compiling translations for erpnext
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/fa/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/fi/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/fr/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/id/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/it/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/km/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/ru/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/sl/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/sr/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/af/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/ar/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/bg/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/hi/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/hr/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/hu/LC_MESSAGES/erpnext.mo
@@ -215,6 +206,15 @@ MO file created at /home/daytona/frappe-bench/sites/assets/locale/pt/LC_MESSAGES
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/pt_BR/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/ro/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/zh_TW/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/af/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/ar/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/bg/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/id/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/it/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/km/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/ru/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/sl/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/sr/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/de/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/eo/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/es/LC_MESSAGES/erpnext.mo
@@ -280,7 +280,7 @@ POST_BODY Example Manufacturing Oy | Supplier confirmation | Purchase order PO-1
         "schedule_date": "2026-11-07"
       }
     ],
-    "expires_at": 1793465479,
+    "expires_at": 1793467321,
     "expires_on": "2026-10-31"
   },
   "supplier_api_replay": {
@@ -296,13 +296,13 @@ POST_BODY Example Manufacturing Oy | Supplier confirmation | Purchase order PO-1
 }
 {
   "time_zone": "Europe/Helsinki",
-  "site_now": "2026-10-24 19:51:28.541704",
+  "site_now": "2026-10-24 20:22:10.158083",
   "purchase_orders": [
     {
       "purchase_order": "PO-1042",
       "helios_confirmation_status": "Confirmed",
       "helios_supplier_schedule_date": "2026-11-07",
-      "helios_supplier_confirmed_at": "2026-10-24 19:51:24",
+      "helios_supplier_confirmed_at": "2026-10-24 20:22:06",
       "helios_confirmation_source": "link",
       "item_code": "BRKT-6061-A",
       "schedule_date": "2026-11-07"
@@ -323,7 +323,7 @@ POST_BODY Example Manufacturing Oy | Supplier confirmation | Purchase order PO-1
       "status": "Confirmed",
       "schedule_date": "2026-11-07",
       "confirmation_source": "link",
-      "confirmed_at": "2026-10-24 19:51:24",
+      "confirmed_at": "2026-10-24 20:22:06",
       "note": "Ships in two boxes."
     }
   ],
@@ -332,29 +332,29 @@ POST_BODY Example Manufacturing Oy | Supplier confirmation | Purchase order PO-1
       "reference_name": "PO-1042",
       "purpose": "supplier_confirmation",
       "status": "Active",
-      "expires_at": "2026-10-31 18:51:19"
+      "expires_at": "2026-10-31 19:22:01"
     },
     {
       "reference_name": "PO-1042",
       "purpose": "supplier_confirmation",
       "status": "Revoked",
-      "expires_at": "2026-10-31 18:51:16"
+      "expires_at": "2026-10-31 19:21:58"
     },
     {
       "reference_name": "SO-2007",
       "purpose": "customer_tracking",
       "status": "Active",
-      "expires_at": "2027-01-22 18:51:19"
+      "expires_at": "2027-01-22 19:22:01"
     },
     {
       "reference_name": "PO-1043",
       "purpose": "supplier_confirmation",
       "status": "Active",
-      "expires_at": "2026-10-31 18:51:17"
+      "expires_at": "2026-10-31 19:21:59"
     }
   ]
 }
-{"time_zone": "Europe/Helsinki", "site_now": "2026-10-24 19:51:28.541704", "purchase_orders": [{"purchase_order": "PO-1042", "helios_confirmation_status": "Confirmed", "helios_supplier_schedule_date": "2026-11-07", "helios_supplier_confirmed_at": "2026-10-24 19:51:24", "helios_confirmation_source": "link", "item_code": "BRKT-6061-A", "schedule_date": "2026-11-07"}, {"purchase_order": "PO-1043", "helios_confirmation_status": "Pending", "helios_supplier_schedule_date": null, "helios_supplier_confirmed_at": null, "helios_confirmation_source": null, "item_code": "BRKT-6061-A", "schedule_date": "2026-10-01"}], "audit": [{"purchase_order": "PO-1042", "status": "Confirmed", "schedule_date": "2026-11-07", "confirmation_source": "link", "confirmed_at": "2026-10-24 19:51:24", "note": "Ships in two boxes."}], "tokens": [{"reference_name": "PO-1042", "purpose": "supplier_confirmation", "status": "Active", "expires_at": "2026-10-31 18:51:19"}, {"reference_name": "PO-1042", "purpose": "supplier_confirmation", "status": "Revoked", "expires_at": "2026-10-31 18:51:16"}, {"reference_name": "SO-2007", "purpose": "customer_tracking", "status": "Active", "expires_at": "2027-01-22 18:51:19"}, {"reference_name": "PO-1043", "purpose": "supplier_confirmation", "status": "Active", "expires_at": "2026-10-31 18:51:17"}]}
+{"time_zone": "Europe/Helsinki", "site_now": "2026-10-24 20:22:10.158083", "purchase_orders": [{"purchase_order": "PO-1042", "helios_confirmation_status": "Confirmed", "helios_supplier_schedule_date": "2026-11-07", "helios_supplier_confirmed_at": "2026-10-24 20:22:06", "helios_confirmation_source": "link", "item_code": "BRKT-6061-A", "schedule_date": "2026-11-07"}, {"purchase_order": "PO-1043", "helios_confirmation_status": "Pending", "helios_supplier_schedule_date": null, "helios_supplier_confirmed_at": null, "helios_confirmation_source": null, "item_code": "BRKT-6061-A", "schedule_date": "2026-10-01"}], "audit": [{"purchase_order": "PO-1042", "status": "Confirmed", "schedule_date": "2026-11-07", "confirmation_source": "link", "confirmed_at": "2026-10-24 20:22:06", "note": "Ships in two boxes."}], "tokens": [{"reference_name": "PO-1042", "purpose": "supplier_confirmation", "status": "Active", "expires_at": "2026-10-31 19:22:01"}, {"reference_name": "PO-1042", "purpose": "supplier_confirmation", "status": "Revoked", "expires_at": "2026-10-31 19:21:58"}, {"reference_name": "SO-2007", "purpose": "customer_tracking", "status": "Active", "expires_at": "2027-01-22 19:22:01"}, {"reference_name": "PO-1043", "purpose": "supplier_confirmation", "status": "Active", "expires_at": "2026-10-31 19:21:59"}]}
 screenshots=PASS
 Starting test run with parameters: site=helios.local, app=helios_order_visibility, verbose=False, tests=(), force=False, profile=False, failfast=False, skip_before_tests=False, debug=False, selected_categories=[]
 View detailed logs (using --verbose): /home/daytona/frappe-bench/logs/frappe.testing.log
@@ -367,7 +367,7 @@ helios_order_visibility.tests.test_supplier.TestSupplierConfirmation
 
 
 ----------------------------------------------------------------------
-Ran 2 tests in 1.875s
+Ran 2 tests in 1.915s
 
 OK
 clean_install_http_ui=PASS

@@ -1,4 +1,5 @@
-<!doctype html>
+{# Frappe renders website pages without autoescaping; every value below comes from ERPNext records. #}
+{% autoescape true %}<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -57,7 +58,7 @@
   <section class="hv-card">
 {% if error %}
     <h1>Link not valid</h1>
-    <div class="hv-notice error">{{ error|e }}</div>
+    <div class="hv-notice error">{{ error }}</div>
     <p class="hv-sub">Ask your contact{% if company %} at {{ company }}{% endif %} to send a new tracking link.</p>
 {% elif snapshot %}{% set s = snapshot %}
     <h1>{{ "Order" if s.reference_doctype == "Sales Order" else "Shipment" }} <span class="hv-nowrap">{{ s.reference_name }}</span></h1>
@@ -80,7 +81,8 @@
     {% if s.delivery_notes %}<h2>Shipments</h2><p>{% for dn in s.delivery_notes %}{{ dn.parent }} ({{ dn.qty }}){% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
 {% endif %}
   </section>
-  <p class="hv-foot">{{ today }} · Read-only view of this order. Sent from {{ company or "your supplier" }}&#39;s ERPNext with Helios Order Visibility.</p>
+  <p class="hv-foot">{{ today }} · Read-only view of this order. Sent from {{ company or "your supplier" }}'s ERPNext with Helios Order Visibility.</p>
 </main>
 </body>
 </html>
+{% endautoescape %}

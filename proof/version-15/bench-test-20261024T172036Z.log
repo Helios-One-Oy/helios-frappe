@@ -34,9 +34,9 @@ Downloading python_crontab-2.6.0-py3-none-any.whl (25 kB)
 Downloading requests-2.33.1-py3-none-any.whl (64 kB)
 Downloading semantic_version-2.10.0-py2.py3-none-any.whl (15 kB)
 Downloading uv-0.13.5-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.2 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.2/17.2 MB 515.2 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.2/17.2 MB 243.4 MB/s  0:00:00
 Downloading setuptools-84.2.1-py3-none-any.whl (876 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 876.3/876.3 kB 212.4 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 876.3/876.3 kB 93.7 MB/s  0:00:00
 Downloading honcho-2.0.0-py3-none-any.whl (22 kB)
 Installing collected packages: honcho, uv, setuptools, semantic-version, requests, click, python-crontab, gitpython, frappe-bench
 
@@ -50,19 +50,20 @@ v25.9.0
 python_bin=/usr/bin/python3.13
 Starting MariaDB database server: mariadbd.
 Starting redis-server: redis-server.
-2056:C 24 Oct 2026 16:46:31.382 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
-2063:C 24 Oct 2026 16:46:31.389 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
-2075:C 24 Oct 2026 16:46:31.395 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1975:C 24 Oct 2026 17:20:41.120 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1978:C 24 Oct 2026 17:20:41.145 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1989:C 24 Oct 2026 17:20:41.165 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
 Setting Up Environment
 $ uv venv env --seed --python /usr/bin/python3.13
 Using CPython 3.13.5 interpreter at: /usr/bin/python3.13
 Creating virtual environment with seed packages at: env
  + pip==26.2.2
-/usr/bin/mariadb-admin: connect to server at 'localhost' failed
-error: 'Access denied for user 'root'@'localhost' (using password: NO)'
 Getting frappe
 $ git clone https://github.com/frappe/frappe.git --branch version-15 --depth 1 --origin upstream
 Cloning into 'frappe'...
+/usr/bin/mariadb-admin: connect to server at 'localhost' failed
+error: 'Access denied for user 'root'@'localhost' (using password: NO)'
+Updating files:  53% (1951/3677)Updating files:  54% (1986/3677)Updating files:  55% (2023/3677)Updating files:  56% (2060/3677)Updating files:  57% (2096/3677)Updating files:  58% (2133/3677)Updating files:  59% (2170/3677)Updating files:  60% (2207/3677)Updating files:  61% (2243/3677)Updating files:  62% (2280/3677)Updating files:  63% (2317/3677)Updating files:  64% (2354/3677)Updating files:  65% (2391/3677)Updating files:  66% (2427/3677)Updating files:  67% (2464/3677)Updating files:  68% (2501/3677)Updating files:  69% (2538/3677)Updating files:  70% (2574/3677)Updating files:  71% (2611/3677)Updating files:  72% (2648/3677)Updating files:  73% (2685/3677)Updating files:  74% (2721/3677)Updating files:  75% (2758/3677)Updating files:  76% (2795/3677)Updating files:  77% (2832/3677)Updating files:  78% (2869/3677)Updating files:  79% (2905/3677)Updating files:  80% (2942/3677)Updating files:  81% (2979/3677)Updating files:  82% (3016/3677)Updating files:  83% (3052/3677)Updating files:  84% (3089/3677)Updating files:  85% (3126/3677)Updating files:  86% (3163/3677)Updating files:  87% (3199/3677)Updating files:  88% (3236/3677)Updating files:  89% (3273/3677)Updating files:  90% (3310/3677)Updating files:  91% (3347/3677)Updating files:  92% (3383/3677)Updating files:  93% (3420/3677)Updating files:  94% (3457/3677)Updating files:  95% (3494/3677)Updating files:  96% (3530/3677)Updating files:  97% (3567/3677)Updating files:  98% (3604/3677)Updating files:  99% (3641/3677)Updating files: 100% (3677/3677)Updating files: 100% (3677/3677), done.
 Installing frappe
 $ uv pip install --quiet -e /home/daytona/frappe-bench/apps/frappe  --python /home/daytona/frappe-bench/env/bin/python
 $ yarn install --check-files
@@ -75,12 +76,13 @@ warning " > @frappe/esbuild-plugin-postcss2@0.1.3" has unmet peer dependency "le
 warning " > @frappe/esbuild-plugin-postcss2@0.1.3" has unmet peer dependency "stylus@^0.x".
 warning " > @vue/component-compiler@4.2.4" has unmet peer dependency "vue-template-compiler@*".
 [5/5] Building fresh packages...
-Done in 8.64s.
+Done in 28.83s.
 Found existing apps updating states...
 SUCCESS: Bench /home/daytona/frappe-bench initialized
 Getting erpnext
 $ git clone https://github.com/frappe/erpnext.git --branch version-15 --depth 1 --origin upstream
 Cloning into 'erpnext'...
+Updating files:  41% (1972/4701)Updating files:  42% (1975/4701)Updating files:  43% (2022/4701)Updating files:  44% (2069/4701)Updating files:  45% (2116/4701)Updating files:  46% (2163/4701)Updating files:  47% (2210/4701)Updating files:  48% (2257/4701)Updating files:  49% (2304/4701)Updating files:  50% (2351/4701)Updating files:  51% (2398/4701)Updating files:  52% (2445/4701)Updating files:  53% (2492/4701)Updating files:  54% (2539/4701)Updating files:  55% (2586/4701)Updating files:  56% (2633/4701)Updating files:  57% (2680/4701)Updating files:  58% (2727/4701)Updating files:  59% (2774/4701)Updating files:  60% (2821/4701)Updating files:  61% (2868/4701)Updating files:  62% (2915/4701)Updating files:  63% (2962/4701)Updating files:  64% (3009/4701)Updating files:  65% (3056/4701)Updating files:  66% (3103/4701)Updating files:  66% (3140/4701)Updating files:  67% (3150/4701)Updating files:  68% (3197/4701)Updating files:  69% (3244/4701)Updating files:  69% (3279/4701)Updating files:  70% (3291/4701)Updating files:  71% (3338/4701)Updating files:  72% (3385/4701)Updating files:  73% (3432/4701)Updating files:  74% (3479/4701)Updating files:  74% (3520/4701)Updating files:  75% (3526/4701)Updating files:  76% (3573/4701)Updating files:  77% (3620/4701)Updating files:  78% (3667/4701)Updating files:  79% (3714/4701)Updating files:  80% (3761/4701)Updating files:  81% (3808/4701)Updating files:  82% (3855/4701)Updating files:  83% (3902/4701)Updating files:  84% (3949/4701)Updating files:  85% (3996/4701)Updating files:  86% (4043/4701)Updating files:  87% (4090/4701)Updating files:  88% (4137/4701)Updating files:  89% (4184/4701)Updating files:  90% (4231/4701)Updating files:  91% (4278/4701)Updating files:  92% (4325/4701)Updating files:  93% (4372/4701)Updating files:  94% (4419/4701)Updating files:  95% (4466/4701)Updating files:  96% (4513/4701)Updating files:  97% (4560/4701)Updating files:  98% (4607/4701)Updating files:  99% (4654/4701)Updating files: 100% (4701/4701)Updating files: 100% (4701/4701), done.
 Ignoring dependencies of erpnext. To install dependencies use --resolve-deps
 Installing erpnext
 $ uv pip install --quiet -e /home/daytona/frappe-bench/apps/erpnext  --python /home/daytona/frappe-bench/env/bin/python
@@ -90,7 +92,7 @@ yarn install v1.22.22
 [2/4] Fetching packages...
 [3/4] Linking dependencies...
 [4/4] Building fresh packages...
-Done in 0.12s.
+Done in 0.18s.
 $ bench build --app erpnext
 Linking /home/daytona/frappe-bench/apps/frappe/frappe/public to ./assets/frappe Linking /home/daytona/frappe-bench/apps/frappe/node_modules to ./assets/frappe/node_modules                                                                                Linking /home/daytona/frappe-bench/apps/erpnext/erpnext/public to ./assets/erpnext                                                                                Linking /home/daytona/frappe-bench/apps/erpnext/node_modules to ./assets/erpnext/node_modules                                                                                ✔ Application Assets Linked                                            
 
@@ -111,57 +113,72 @@ erpnext/dist/js/
 └─ bom_configurator.bundle.CQZSCVCI.js                      8.73 Kb
 
 erpnext/dist/css/
-├─ erpnext-web.bundle.DOZNZ6ND.css                          2.86 Kb
-├─ erpnext.bundle.CBOJH6NV.css                              45.90 Kb
-└─ erpnext_email.bundle.QUU6GPX6.css                        0.56 Kb
+├─ erpnext-web.bundle.QS7PXFUM.css                          2.86 Kb
+├─ erpnext.bundle.TSFCYA32.css                              45.90 Kb
+└─ erpnext_email.bundle.HNLPUDFM.css                        0.56 Kb
 
 erpnext/dist/css-rtl/
-├─ erpnext-web.bundle.QUPME4Z6.css                          2.87 Kb
-├─ erpnext.bundle.7ZM7BIZA.css                              45.89 Kb
-└─ erpnext_email.bundle.MLKJ3M3A.css                        0.56 Kb
+├─ erpnext-web.bundle.KALPCDYB.css                          2.87 Kb
+├─ erpnext.bundle.PZW6OVEY.css                              45.89 Kb
+└─ erpnext_email.bundle.5A7OU4CQ.css                        0.56 Kb
 
- DONE  Total Build Time: 562.724ms
+ DONE  Total Build Time: 917.713ms
 
-Done in 1.15s.
+Done in 2.15s.
 Compiling translations for erpnext
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/fa/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/fi/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/fr/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/gu/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/he/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/ml/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/mr/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/ms/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/my/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/nb/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/pt_BR/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/ro/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/ru/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/rw/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/si/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/bs/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/ca/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/cs/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/cz/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/da/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/de/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/el/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/es/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/es_PE/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/et/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/hi/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/hr/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/hu/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/id/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/is/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/sk/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/sl/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/sq/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/sr/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/sr_CS/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/bs/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/ca/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/cs/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/cz/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/da/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/ml/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/mr/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/ms/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/my/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/nb/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/sr_SP/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/sv/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/sw/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/ta/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/te/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/vi/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/zh/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/zh_TW/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/af/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/am/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/ar/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/bg/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/bn/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/it/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/ja/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/km/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/kn/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/ko/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/pt_BR/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/ro/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/ru/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/rw/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/si/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/vi/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/zh/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/zh_TW/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/fa/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/fi/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/fr/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/gu/LC_MESSAGES/erpnext.mo
+MO file created at /home/daytona/frappe-bench/sites/assets/locale/he/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/ku/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/lo/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/lt/LC_MESSAGES/erpnext.mo
@@ -177,21 +194,6 @@ MO file created at /home/daytona/frappe-bench/sites/assets/locale/tr/LC_MESSAGES
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/uk/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/ur/LC_MESSAGES/erpnext.mo
 MO file created at /home/daytona/frappe-bench/sites/assets/locale/uz/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/de/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/el/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/es/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/es_PE/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/et/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/it/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/ja/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/km/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/kn/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/ko/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/sk/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/sl/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/sq/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/sr/LC_MESSAGES/erpnext.mo
-MO file created at /home/daytona/frappe-bench/sites/assets/locale/sr_CS/LC_MESSAGES/erpnext.mo
 Warning: MariaDB version ['11.8', '6'] is more than 10.8 which is not yet tested with Frappe Framework.
 
 Installing frappe...
@@ -237,7 +239,7 @@ POST_BODY Example Manufacturing Oy | Supplier confirmation | Purchase order PO-1
         "schedule_date": "2026-11-07"
       }
     ],
-    "expires_at": 1793465283,
+    "expires_at": 1793467418,
     "expires_on": "2026-10-31"
   },
   "supplier_api_replay": {
@@ -253,13 +255,13 @@ POST_BODY Example Manufacturing Oy | Supplier confirmation | Purchase order PO-1
 }
 {
   "time_zone": "Europe/Helsinki",
-  "site_now": "2026-10-24 19:48:13.910421",
+  "site_now": "2026-10-24 20:23:53.619372",
   "purchase_orders": [
     {
       "purchase_order": "PO-1042",
       "helios_confirmation_status": "Confirmed",
       "helios_supplier_schedule_date": "2026-11-07",
-      "helios_supplier_confirmed_at": "2026-10-24 19:48:09",
+      "helios_supplier_confirmed_at": "2026-10-24 20:23:48",
       "helios_confirmation_source": "link",
       "item_code": "BRKT-6061-A",
       "schedule_date": "2026-11-07"
@@ -280,7 +282,7 @@ POST_BODY Example Manufacturing Oy | Supplier confirmation | Purchase order PO-1
       "status": "Confirmed",
       "schedule_date": "2026-11-07",
       "confirmation_source": "link",
-      "confirmed_at": "2026-10-24 19:48:09",
+      "confirmed_at": "2026-10-24 20:23:48",
       "note": "Ships in two boxes."
     }
   ],
@@ -289,35 +291,35 @@ POST_BODY Example Manufacturing Oy | Supplier confirmation | Purchase order PO-1
       "reference_name": "PO-1042",
       "purpose": "supplier_confirmation",
       "status": "Active",
-      "expires_at": "2026-10-31 18:48:03"
+      "expires_at": "2026-10-31 19:23:38"
     },
     {
       "reference_name": "PO-1042",
       "purpose": "supplier_confirmation",
       "status": "Revoked",
-      "expires_at": "2026-10-31 18:48:00"
+      "expires_at": "2026-10-31 19:23:35"
     },
     {
       "reference_name": "SO-2007",
       "purpose": "customer_tracking",
       "status": "Active",
-      "expires_at": "2027-01-22 18:48:03"
+      "expires_at": "2027-01-22 19:23:38"
     },
     {
       "reference_name": "PO-1043",
       "purpose": "supplier_confirmation",
       "status": "Active",
-      "expires_at": "2026-10-31 18:48:01"
+      "expires_at": "2026-10-31 19:23:36"
     }
   ]
 }
-{"time_zone": "Europe/Helsinki", "site_now": "2026-10-24 19:48:13.910421", "purchase_orders": [{"purchase_order": "PO-1042", "helios_confirmation_status": "Confirmed", "helios_supplier_schedule_date": "2026-11-07", "helios_supplier_confirmed_at": "2026-10-24 19:48:09", "helios_confirmation_source": "link", "item_code": "BRKT-6061-A", "schedule_date": "2026-11-07"}, {"purchase_order": "PO-1043", "helios_confirmation_status": "Pending", "helios_supplier_schedule_date": null, "helios_supplier_confirmed_at": null, "helios_confirmation_source": null, "item_code": "BRKT-6061-A", "schedule_date": "2026-10-01"}], "audit": [{"purchase_order": "PO-1042", "status": "Confirmed", "schedule_date": "2026-11-07", "confirmation_source": "link", "confirmed_at": "2026-10-24 19:48:09", "note": "Ships in two boxes."}], "tokens": [{"reference_name": "PO-1042", "purpose": "supplier_confirmation", "status": "Active", "expires_at": "2026-10-31 18:48:03"}, {"reference_name": "PO-1042", "purpose": "supplier_confirmation", "status": "Revoked", "expires_at": "2026-10-31 18:48:00"}, {"reference_name": "SO-2007", "purpose": "customer_tracking", "status": "Active", "expires_at": "2027-01-22 18:48:03"}, {"reference_name": "PO-1043", "purpose": "supplier_confirmation", "status": "Active", "expires_at": "2026-10-31 18:48:01"}]}
+{"time_zone": "Europe/Helsinki", "site_now": "2026-10-24 20:23:53.619372", "purchase_orders": [{"purchase_order": "PO-1042", "helios_confirmation_status": "Confirmed", "helios_supplier_schedule_date": "2026-11-07", "helios_supplier_confirmed_at": "2026-10-24 20:23:48", "helios_confirmation_source": "link", "item_code": "BRKT-6061-A", "schedule_date": "2026-11-07"}, {"purchase_order": "PO-1043", "helios_confirmation_status": "Pending", "helios_supplier_schedule_date": null, "helios_supplier_confirmed_at": null, "helios_confirmation_source": null, "item_code": "BRKT-6061-A", "schedule_date": "2026-10-01"}], "audit": [{"purchase_order": "PO-1042", "status": "Confirmed", "schedule_date": "2026-11-07", "confirmation_source": "link", "confirmed_at": "2026-10-24 20:23:48", "note": "Ships in two boxes."}], "tokens": [{"reference_name": "PO-1042", "purpose": "supplier_confirmation", "status": "Active", "expires_at": "2026-10-31 19:23:38"}, {"reference_name": "PO-1042", "purpose": "supplier_confirmation", "status": "Revoked", "expires_at": "2026-10-31 19:23:35"}, {"reference_name": "SO-2007", "purpose": "customer_tracking", "status": "Active", "expires_at": "2027-01-22 19:23:38"}, {"reference_name": "PO-1043", "purpose": "supplier_confirmation", "status": "Active", "expires_at": "2026-10-31 19:23:36"}]}
 screenshots=PASS
 
-test_link_confirm_updates_po_and_line_schedule (helios_order_visibility.tests.test_supplier.TestSupplierConfirmation.test_link_confirm_updates_po_and_line_schedule) (2.1s)
+test_link_confirm_updates_po_and_line_schedule (helios_order_visibility.tests.test_supplier.TestSupplierConfirmation.test_link_confirm_updates_po_and_line_schedule) (3.02s)
 ..
 ----------------------------------------------------------------------
-Ran 2 tests in 2.290s
+Ran 2 tests in 3.251s
 
 OK
 clean_install_http_ui=PASS

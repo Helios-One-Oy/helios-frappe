@@ -13,7 +13,7 @@ authors = [{name = "Helios One Oy"}]
 dependencies = []
 
 [project.optional-dependencies]
-test = ["pytest>=7.0"]
+test = ["pytest>=7.0", "jinja2>=3.1"]
 
 # Frappe Cloud uses this declaration when it validates an app against a bench.
 # Keep the app compatible with the supported ERPNext/Frappe 15 and 16 lines;

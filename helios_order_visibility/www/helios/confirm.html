@@ -1,4 +1,5 @@
-<!doctype html>
+{# Frappe renders website pages without autoescaping; every value below comes from ERPNext records. #}
+{% autoescape true %}<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -57,7 +58,7 @@
   <section class="hv-card">
 {% if error %}
     <h1>Link not valid</h1>
-    <div class="hv-notice error">{{ error|e }}</div>
+    <div class="hv-notice error">{{ error }}</div>
     <p class="hv-sub">Ask your buyer{% if company %} at {{ company }}{% endif %} to send a new confirmation link.</p>
 {% elif confirmation %}{% set c = confirmation %}
     <h1>Purchase order <span class="hv-nowrap">{{ c.purchase_order }}</span></h1>
@@ -78,7 +79,7 @@
       <div class="hv-notice ok">{{ "Confirmed" if c.status == "Confirmed" else "Declined" }}{% if c.schedule_display %} for delivery on {{ c.schedule_display }}{% endif %}. Nothing else is needed.</div>
     {% elif c.status == "Pending" %}
       <form method="post" class="hv-form">
-        <input type="hidden" name="token" value="{{ token|e }}">
+        <input type="hidden" name="token" value="{{ token }}">
         {% if csrf_token %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
         <label>Your answer<select name="confirmed"><option value="true">Confirm the order</option><option value="false">Decline the order</option></select></label>
         <label>Delivery date<input type="date" name="schedule_date" value="{{ c.form_date }}" required></label>
@@ -90,7 +91,8 @@
     {% endif %}
 {% endif %}
   </section>
-  <p class="hv-foot">{{ today }} · Only this purchase order is shown. Sent from {{ company or "the buyer" }}&#39;s ERPNext with Helios Order Visibility.</p>
+  <p class="hv-foot">{{ today }} · Only this purchase order is shown. Sent from {{ company or "the buyer" }}'s ERPNext with Helios Order Visibility.</p>
 </main>
 </body>
 </html>
+{% endautoescape %}

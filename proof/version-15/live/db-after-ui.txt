@@ -1,12 +1,12 @@
 {
   "time_zone": "Europe/Helsinki",
-  "site_now": "2026-10-24 19:48:13.910421",
+  "site_now": "2026-10-24 20:23:53.619372",
   "purchase_orders": [
     {
       "purchase_order": "PO-1042",
       "helios_confirmation_status": "Confirmed",
       "helios_supplier_schedule_date": "2026-11-07",
-      "helios_supplier_confirmed_at": "2026-10-24 19:48:09",
+      "helios_supplier_confirmed_at": "2026-10-24 20:23:48",
       "helios_confirmation_source": "link",
       "item_code": "BRKT-6061-A",
       "schedule_date": "2026-11-07"
@@ -27,7 +27,7 @@
       "status": "Confirmed",
       "schedule_date": "2026-11-07",
       "confirmation_source": "link",
-      "confirmed_at": "2026-10-24 19:48:09",
+      "confirmed_at": "2026-10-24 20:23:48",
       "note": "Ships in two boxes."
     }
   ],
@@ -36,26 +36,26 @@
       "reference_name": "PO-1042",
       "purpose": "supplier_confirmation",
       "status": "Active",
-      "expires_at": "2026-10-31 18:48:03"
+      "expires_at": "2026-10-31 19:23:38"
     },
     {
       "reference_name": "PO-1042",
       "purpose": "supplier_confirmation",
       "status": "Revoked",
-      "expires_at": "2026-10-31 18:48:00"
+      "expires_at": "2026-10-31 19:23:35"
     },
     {
       "reference_name": "SO-2007",
       "purpose": "customer_tracking",
       "status": "Active",
-      "expires_at": "2027-01-22 18:48:03"
+      "expires_at": "2027-01-22 19:23:38"
     },
     {
       "reference_name": "PO-1043",
       "purpose": "supplier_confirmation",
       "status": "Active",
-      "expires_at": "2026-10-31 18:48:01"
+      "expires_at": "2026-10-31 19:23:36"
     }
   ]
 }
-{"time_zone": "Europe/Helsinki", "site_now": "2026-10-24 19:48:13.910421", "purchase_orders": [{"purchase_order": "PO-1042", "helios_confirmation_status": "Confirmed", "helios_supplier_schedule_date": "2026-11-07", "helios_supplier_confirmed_at": "2026-10-24 19:48:09", "helios_confirmation_source": "link", "item_code": "BRKT-6061-A", "schedule_date": "2026-11-07"}, {"purchase_order": "PO-1043", "helios_confirmation_status": "Pending", "helios_supplier_schedule_date": null, "helios_supplier_confirmed_at": null, "helios_confirmation_source": null, "item_code": "BRKT-6061-A", "schedule_date": "2026-10-01"}], "audit": [{"purchase_order": "PO-1042", "status": "Confirmed", "schedule_date": "2026-11-07", "confirmation_source": "link", "confirmed_at": "2026-10-24 19:48:09", "note": "Ships in two boxes."}], "tokens": [{"reference_name": "PO-1042", "purpose": "supplier_confirmation", "status": "Active", "expires_at": "2026-10-31 18:48:03"}, {"reference_name": "PO-1042", "purpose": "supplier_confirmation", "status": "Revoked", "expires_at": "2026-10-31 18:48:00"}, {"reference_name": "SO-2007", "purpose": "customer_tracking", "status": "Active", "expires_at": "2027-01-22 18:48:03"}, {"reference_name": "PO-1043", "purpose": "supplier_confirmation", "status": "Active", "expires_at": "2026-10-31 18:48:01"}]}
+{"time_zone": "Europe/Helsinki", "site_now": "2026-10-24 20:23:53.619372", "purchase_orders": [{"purchase_order": "PO-1042", "helios_confirmation_status": "Confirmed", "helios_supplier_schedule_date": "2026-11-07", "helios_supplier_confirmed_at": "2026-10-24 20:23:48", "helios_confirmation_source": "link", "item_code": "BRKT-6061-A", "schedule_date": "2026-11-07"}, {"purchase_order": "PO-1043", "helios_confirmation_status": "Pending", "helios_supplier_schedule_date": null, "helios_supplier_confirmed_at": null, "helios_confirmation_source": null, "item_code": "BRKT-6061-A", "schedule_date": "2026-10-01"}], "audit": [{"purchase_order": "PO-1042", "status": "Confirmed", "schedule_date": "2026-11-07", "confirmation_source": "link", "confirmed_at": "2026-10-24 20:23:48", "note": "Ships in two boxes."}], "tokens": [{"reference_name": "PO-1042", "purpose": "supplier_confirmation", "status": "Active", "expires_at": "2026-10-31 19:23:38"}, {"reference_name": "PO-1042", "purpose": "supplier_confirmation", "status": "Revoked", "expires_at": "2026-10-31 19:23:35"}, {"reference_name": "SO-2007", "purpose": "customer_tracking", "status": "Active", "expires_at": "2027-01-22 19:23:38"}, {"reference_name": "PO-1043", "purpose": "supplier_confirmation", "status": "Active", "expires_at": "2026-10-31 19:23:36"}]}
