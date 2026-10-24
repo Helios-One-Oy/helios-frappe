@@ -1,8 +1,8 @@
 {
   "status": "captured",
   "source_site": "clean Daytona/Fly Frappe bench helios.local (fresh MariaDB/Redis)",
-  "capture_date": "2026-10-24T06:54:08Z",
-  "commit": "015c25afc762e559f1abf4900274ab4656ee4690",
+  "capture_date": "2026-10-24T07:20:48Z",
+  "commit": "aa0e4934132976033de265ace6d33e5c3ab52e4b",
   "fixture": "fictional sample data: Northstar Precision, Acme Robotics, M3-SUP-0042, M3-CUS-0007",
   "screenshots": [
     {"file": "supplier-confirmation-1280.png", "view": "supplier confirmation", "viewport": "1280x720"},
