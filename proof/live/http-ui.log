@@ -1,0 +1,8 @@
+{
+  "supplier_get": 200,
+  "supplier_post": 200,
+  "tracking_get": 200,
+  "otd_ui": 200,
+  "writeback": "Confirmed",
+  "sample_label": "fictional sample data"
+}

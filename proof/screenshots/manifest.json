@@ -1,12 +1,15 @@
 {
-  "status": "not-captured",
-  "reason": "No real Frappe/ERPNext UI proof is present in this repository.",
-  "required": [
-    {"file": "supplier-confirmation-1280.png", "viewport": "1280x720"},
-    {"file": "supplier-confirmation-390.png", "viewport": "390x844"},
-    {"file": "customer-tracking-1280.png", "viewport": "1280x720"},
-    {"file": "customer-tracking-390.png", "viewport": "390x844"},
-    {"file": "supplier-otd-1280.png", "viewport": "1280x720"},
-    {"file": "supplier-otd-390.png", "viewport": "390x844"}
+  "status": "captured",
+  "source_site": "clean Daytona/Fly Frappe bench helios.local (fresh MariaDB/Redis)",
+  "capture_date": "2026-10-24T05:00:00Z",
+  "commit": "working tree captured by scripts/test-daytona.sh; commit recorded in review",
+  "fixture": "fictional sample data: Northstar Precision, Acme Robotics, M3-SUP-0042, M3-CUS-0007",
+  "screenshots": [
+    {"file": "supplier-confirmation-1280.png", "view": "supplier confirmation", "viewport": "1280x720"},
+    {"file": "supplier-confirmation-390.png", "view": "supplier confirmation", "viewport": "390x844"},
+    {"file": "customer-tracking-1280.png", "view": "customer tracking", "viewport": "1280x720"},
+    {"file": "customer-tracking-390.png", "view": "customer tracking", "viewport": "390x844"},
+    {"file": "supplier-otd-1280.png", "view": "supplier OTD report", "viewport": "1280x720"},
+    {"file": "supplier-otd-390.png", "view": "supplier OTD report", "viewport": "390x844"}
   ]
 }

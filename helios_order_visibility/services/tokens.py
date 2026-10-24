@@ -81,7 +81,9 @@ def issue_token(doctype: str, docname: str, purpose: str, expires_at: Any, metad
         "reference_doctype": doctype,
         "reference_name": docname,
         "purpose": purpose,
-        "expires_at": _iso(expires),
+        # Frappe/MariaDB Datetime fields require a SQL datetime literal;
+        # retain UTC while omitting the ISO ``T``/``Z`` markers.
+        "expires_at": _utc(expires).replace(tzinfo=None).strftime("%Y-%m-%d %H:%M:%S"),
         "status": "Active",
     }
     if metadata:

@@ -57,9 +57,17 @@ def _safe_items(doctype, name):
     item_doctype = "Sales Order Item" if doctype == "Sales Order" else "Delivery Note Item"
     fields = ["item_code", "item_name", "qty", "uom"]
     if doctype == "Sales Order":
-        fields += ["schedule_date", "delivered_qty"]
+        # ERPNext calls the SO line date ``delivery_date``; the public
+        # integration schema consistently presents it as ``schedule_date``.
+        fields += ["delivery_date", "delivered_qty"]
     rows = frappe.get_all(item_doctype, filters={"parent": name}, fields=fields)
-    return [{k: row.get(k) for k in ("item_code", "item_name", "qty", "uom", "schedule_date", "delivered_qty") if row.get(k) is not None} for row in rows]
+    result = []
+    for row in rows:
+        item = {k: row.get(k) for k in ("item_code", "item_name", "qty", "uom", "delivered_qty") if row.get(k) is not None}
+        if doctype == "Sales Order" and row.get("delivery_date") is not None:
+            item["schedule_date"] = row.get("delivery_date")
+        result.append(item)
+    return result
 
 
 def tracking_snapshot(raw_token):

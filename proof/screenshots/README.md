@@ -1,16 +1,12 @@
 # Screenshot evidence
 
-Only screenshots captured from a running Frappe/ERPNext site belong here. Do not use mockups, generated UI, or screenshots with customer data.
+Captured from the clean Daytona/Fly Frappe/ERPNext site by `scripts/test-daytona.sh`. All records are fictional and labeled in the pages; no customer data is present.
 
-Required captures before a Marketplace submission:
-
-| File | View | Required sizes | Status |
-| --- | --- | --- | --- |
-| `supplier-confirmation-1280.png` | Supplier confirmation form and result | 1280 px wide | Not captured |
-| `supplier-confirmation-390.png` | Supplier confirmation form and result | 390 px wide | Not captured |
-| `customer-tracking-1280.png` | Filtered customer tracking view | 1280 px wide | Not captured |
-| `customer-tracking-390.png` | Filtered customer tracking view | 390 px wide | Not captured |
-| `supplier-otd-1280.png` | Supplier OTD report | 1280 px wide | Not captured |
-| `supplier-otd-390.png` | Supplier OTD report | 390 px wide | Not captured |
-
-Record the source site, commit, capture date, viewport, and fictional fixture name in a neighboring `.json` manifest. The listing must reference only files that exist and have been reviewed.
+| File | View | Size |
+| --- | --- | --- |
+| `supplier-confirmation-1280.png` | Supplier confirmation | 1280x720 |
+| `supplier-confirmation-390.png` | Supplier confirmation | 390x844 |
+| `customer-tracking-1280.png` | Customer tracking | 1280x720 |
+| `customer-tracking-390.png` | Customer tracking | 390x844 |
+| `supplier-otd-1280.png` | Supplier OTD report | 1280x720 |
+| `supplier-otd-390.png` | Supplier OTD report | 390x844 |

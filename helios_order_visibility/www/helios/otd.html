@@ -1,0 +1,14 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<style>
+  :root { color-scheme: light; --ink:#14212b; --muted:#60717c; --accent:#087f8c; --wash:#eef7f6; }
+  .m3-shell { max-width: 980px; margin: 6vh auto; padding: 0 22px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color:var(--ink); }
+  .m3-brand { letter-spacing:.12em; text-transform:uppercase; font-size:12px; font-weight:700; color:var(--accent); }
+  .m3-card { margin-top:18px; border:1px solid #d8e4e5; border-radius:18px; padding:30px; box-shadow:0 12px 30px #16333b12; background:white; overflow:auto; }
+  h1 { font-size:clamp(28px,4vw,46px); line-height:1.06; margin:12px 0; letter-spacing:-.03em; } .m3-sub{color:var(--muted);font-size:17px}
+  table { width:100%; border-collapse:collapse; margin-top:24px; min-width:620px; } th,td{text-align:left;padding:13px 10px;border-bottom:1px solid #e5eeee;font-size:14px} th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em}.m3-open{color:#087f5b;font-weight:700}.m3-label{color:var(--muted);font-size:12px}
+  @media(max-width:600px){.m3-shell{margin:3vh auto;padding:0 16px}.m3-card{padding:22px;border-radius:14px}h1{font-size:32px}table{min-width:0}th,td{padding:11px 6px;font-size:13px}th:nth-child(3),td:nth-child(3),th:nth-child(4),td:nth-child(4){display:none}}
+</style>
+<div class="m3-shell"><div class="m3-brand">Helios Order Visibility · review surface</div><div class="m3-card"><h1>Supplier OTD</h1><p class="m3-sub">Live report output from the fictional ERPNext order.</p>
+{% if error %}<p>{{ error }}</p>{% elif rows %}<table><thead><tr><th>Purchase order</th><th>Supplier</th><th>Item</th><th>Schedule</th><th>OTD</th></tr></thead><tbody>{% for row in rows %}<tr><td>{{ row.purchase_order }}</td><td>{{ row.supplier }}</td><td>{{ row.item_code }}</td><td>{{ row.schedule_date }}</td><td class="m3-open">{{ row.otd_status }}</td></tr>{% endfor %}</tbody></table>{% else %}<p>No rows.</p>{% endif %}<p class="m3-label">{{ sample_label }}</p></div></div>
+{% endblock %}

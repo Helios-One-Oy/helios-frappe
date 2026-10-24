@@ -1,0 +1,22 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<style>
+  :root { color-scheme: light; --ink:#14212b; --muted:#60717c; --accent:#087f8c; --wash:#eef7f6; }
+  .m3-shell { max-width: 820px; margin: 6vh auto; padding: 0 22px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color:var(--ink); }
+  .m3-brand { letter-spacing:.12em; text-transform:uppercase; font-size:12px; font-weight:700; color:var(--accent); }
+  .m3-card { margin-top:18px; border:1px solid #d8e4e5; border-radius:18px; padding:30px; box-shadow:0 12px 30px #16333b12; background:white; }
+  h1 { font-size:clamp(28px,4vw,46px); line-height:1.06; margin:12px 0; letter-spacing:-.03em; }
+  .m3-sub { color:var(--muted); font-size:17px; margin:0 0 24px; }
+  .m3-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:24px 0; }
+  .m3-stat { background:var(--wash); border-radius:12px; padding:14px; } .m3-label { color:var(--muted); font-size:12px; } .m3-value { margin-top:5px; font-weight:700; }
+  .m3-ok { color:#087f5b; font-weight:700; } .m3-error { color:#a83232; font-weight:600; }
+  @media(max-width:600px){ .m3-shell{margin:3vh auto;padding:0 16px}.m3-card{padding:22px;border-radius:14px}.m3-grid{grid-template-columns:1fr 1fr} h1{font-size:32px} }
+</style>
+<div class="m3-shell"><div class="m3-brand">Helios Order Visibility · review surface</div>
+  <div class="m3-card"><h1>Customer order tracking</h1><p class="m3-sub">A read-only status view for a fictional customer order.</p>
+  {% if error %}<p class="m3-error">{{ error }}</p>{% elif snapshot %}
+    <div class="m3-grid"><div class="m3-stat"><div class="m3-label">Sales order</div><div class="m3-value">{{ snapshot.reference_name }}</div></div><div class="m3-stat"><div class="m3-label">Customer</div><div class="m3-value">{{ snapshot.customer }}</div></div><div class="m3-stat"><div class="m3-label">Status</div><div class="m3-value m3-ok">{{ snapshot.status }}</div></div></div>
+    <p class="m3-label">{{ snapshot["items"]|length }} line item(s) · {{ sample_label }}</p>
+  {% endif %}</div>
+</div>
+{% endblock %}

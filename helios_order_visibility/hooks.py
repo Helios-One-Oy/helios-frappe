@@ -39,8 +39,8 @@ after_migrate = "helios_order_visibility.patches.v1_0.ensure_custom_fields"
 
 # Keep public endpoints narrow. No standard Frappe authentication endpoints are overridden.
 website_route_rules = [
-    {"from_route": "/helios/confirm/<token>", "to_route": "helios_order_visibility.confirm"},
-    {"from_route": "/helios/track/<token>", "to_route": "helios_order_visibility.track"},
+    {"from_route": "/helios/confirm/<token>", "to_route": "helios_order_visibility.routes.confirm"},
+    {"from_route": "/helios/track/<token>", "to_route": "helios_order_visibility.routes.track"},
 ]
 
 # Hook-based permission checks protect app-owned records and report data.

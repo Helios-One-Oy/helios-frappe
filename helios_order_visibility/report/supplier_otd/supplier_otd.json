@@ -21,5 +21,9 @@
   "ref_doctype": "Purchase Order",
   "report_name": "Supplier OTD",
   "report_type": "Script Report",
-  "roles": ["Purchase Manager", "Helios Order Visibility Manager", "Helios Order Visibility User"]
+  "roles": [
+    {"role": "Purchase Manager"},
+    {"role": "Helios Order Visibility Manager"},
+    {"role": "Helios Order Visibility User"}
+  ]
 }
