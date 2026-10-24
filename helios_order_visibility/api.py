@@ -3,22 +3,13 @@ from __future__ import annotations
 
 import frappe
 
-from .services.supplier import confirm_from_token, process_incoming_email
+from .services.supplier import confirm_from_token, process_incoming_email, supplier_confirmation_view
 from .services.tracking import tracking_snapshot
 
 
 @frappe.whitelist(allow_guest=True, methods=["GET"])
 def get_supplier_confirmation(token):
-    from .services.tokens import decode_and_validate
-    claims = decode_and_validate(token, "supplier_confirmation")
-    po = frappe.get_doc("Purchase Order", claims["name"])
-    return {
-        "purchase_order": claims["name"],
-        "supplier": getattr(po, "supplier_name", None) or getattr(po, "supplier", None),
-        "status": getattr(po, "helios_confirmation_status", None) or "Pending",
-        "schedule_date": getattr(po, "helios_supplier_schedule_date", None),
-        "expires_at": claims["exp"],
-    }
+    return supplier_confirmation_view(token)
 
 
 @frappe.whitelist(allow_guest=True, methods=["POST"])

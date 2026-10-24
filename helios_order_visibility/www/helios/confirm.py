@@ -1,41 +1,56 @@
-"""Human-readable supplier confirmation page used by the live proof."""
+"""Supplier confirmation page behind a signed Purchase Order link."""
 import frappe
+
+# Each signed link renders different data; never serve this page from the
+# website cache, which is keyed by path only.
+no_cache = 1
+sitemap = 0
 
 
 def get_context(context):
-    from helios_order_visibility.api import get_supplier_confirmation
-    from helios_order_visibility.services.supplier import confirm_from_token
+    from helios_order_visibility.services.common import company_display_name, display_date, display_qty, site_today
+    from helios_order_visibility.services.supplier import confirm_from_token, supplier_confirmation_view
+    from helios_order_visibility.services.tokens import decode_and_validate
 
+    context.no_cache = 1
     token = frappe.form_dict.get("token")
-    context.title = "Supplier PO confirmation"
-    context.sample_label = "fictional sample data"
+    context.title = "Confirm purchase order"
     context.error = None
     context.result = None
+    context.confirmation = None
+    context.token = token
+    # Signed-in desk users (a buyer checking the link) need Frappe's CSRF token
+    # on the POST; guests have none, the signed link is their capability.
+    context.csrf_token = frappe.sessions.get_csrf_token() if frappe.session.user != "Guest" else ""
+    context.company = company_display_name(frappe)
+    context.today = display_date(frappe, site_today(frappe))
     if not token:
-        context.error = "A signed supplier token is required."
+        context.error = "This page needs the confirmation link from your purchase order email."
         return context
     try:
-        # The signed token is the capability for this guest form. Validate it
-        # before disabling Frappe's normal CSRF check for the POST.
-        from helios_order_visibility.services.tokens import decode_and_validate
+        # The signed token is the capability for this guest form; validate it
+        # before handling a POST.
         decode_and_validate(token, "supplier_confirmation")
-        is_post = bool(frappe.local.request and str(frappe.local.request.method).upper() == "POST")
-        # Some Frappe web adapters expose the form fields before the request
-        # wrapper is populated; the signed token plus a submitted date is
-        # still an unambiguous capability-form POST.
-        is_post = is_post or bool(frappe.form_dict.get("schedule_date"))
-        if is_post:
-            frappe.local.no_csrf = True
-        if is_post:
+        if frappe.local.request and str(frappe.local.request.method).upper() == "POST":
             confirmed = frappe.form_dict.get("confirmed", "true")
             context.result = confirm_from_token(
                 token,
                 str(confirmed).lower() in {"1", "true", "yes", "confirmed"},
                 frappe.form_dict.get("schedule_date"),
                 frappe.form_dict.get("note"),
-                source="live-proof-page",
+                source="link",
             )
-        context.confirmation = get_supplier_confirmation(token)
+        view = supplier_confirmation_view(token)
+        context.company = view["company"] or context.company
+        context.title = f"Confirm {view['purchase_order']}"
+        view["requested_display"] = display_date(frappe, view["requested_date"])
+        view["schedule_display"] = display_date(frappe, view["schedule_date"])
+        view["expires_display"] = display_date(frappe, view["expires_on"])
+        view["form_date"] = str(view["schedule_date"] or view["requested_date"] or "")[:10]
+        for item in view["items"]:
+            item["schedule_display"] = display_date(frappe, item["schedule_date"])
+            item["qty_display"] = display_qty(item["qty"])
+        context.confirmation = view
     except Exception as exc:
         context.error = str(exc)
     return context

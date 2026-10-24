@@ -23,7 +23,7 @@ The official pages used for this package are:
 | Website, support, documentation, terms, privacy URLs | All five URLs are listed in the draft metadata; verify they resolve after the repository is public | [`marketplace/listing.json`](../marketplace/listing.json), [`docs/terms-of-service.md`](terms-of-service.md), [`docs/privacy-policy.md`](privacy-policy.md) |
 | 40–80 character one-sentence summary | Draft summary is 68 characters and does not repeat the title | [`marketplace/listing.json`](../marketplace/listing.json) |
 | Long description without install steps or repeated summary | Draft listing description contains features and usage only | [`marketplace/listing.json`](../marketplace/listing.json), [`marketplace/README.md`](../marketplace/README.md) |
-| Screenshots/videos in listing media fields | No real UI captures exist yet; the listing intentionally has an empty array | [`marketplace/listing.json`](../marketplace/listing.json), [`proof/screenshots/README.md`](../proof/screenshots/README.md) |
+| Screenshots/videos in listing media fields | Real clean-install captures at 1280 and 390 px | [`marketplace/listing.json`](../marketplace/listing.json), [`proof/README.md`](../proof/README.md) |
 | Release submitted in Marketplace Versions | Not done; requires a tagged release and portal action | [`marketplace/README.md`](../marketplace/README.md) |
 | Security and authoring guidance | Uses hooks, does not override Frappe authentication routes, and has CI | [`helios_order_visibility/hooks.py`](../helios_order_visibility/hooks.py), [`docs/api.md`](api.md), [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) |
 

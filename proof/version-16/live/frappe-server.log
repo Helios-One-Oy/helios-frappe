@@ -1,0 +1,24 @@
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://172.20.0.30:8000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 217-948-212
+127.0.0.1 - - [24/Oct/2026 16:51:21] "GET /helios/confirm HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 16:51:21] "[31m[1mGET /helios/otd HTTP/1.1[0m" 403 -
+127.0.0.1 - - [24/Oct/2026 16:51:22] "GET /helios/confirm?token=REDACTED_TOKEN HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 16:51:22] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+127.0.0.1 - - [24/Oct/2026 16:51:23] "GET /helios/confirm?token=REDACTED_TOKEN HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 16:51:24] "GET /helios/confirm?token=REDACTED_TOKEN HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 16:51:24] "POST /helios/confirm?token=REDACTED_TOKEN HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 16:51:25] "GET /api/method/helios_order_visibility.api.get_supplier_confirmation?token=REDACTED_TOKEN HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 16:51:25] "GET /api/method/helios_order_visibility.api.get_supplier_confirmation?token=REDACTED_TOKEN HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 16:51:25] "POST /api/method/helios_order_visibility.api.confirm_supplier_purchase_order HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 16:51:25] "GET /helios/track?token=REDACTED_TOKEN HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 16:51:26] "POST /api/method/login HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 16:51:26] "GET /helios/otd HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 16:51:27] "GET /helios/late_lines HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 16:51:27] "[31m[1mGET /helios/otd HTTP/1.1[0m" 403 -
+127.0.0.1 - - [24/Oct/2026 16:51:27] "[31m[1mGET /helios/late_lines HTTP/1.1[0m" 403 -

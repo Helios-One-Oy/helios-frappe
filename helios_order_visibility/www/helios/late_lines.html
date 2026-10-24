@@ -3,21 +3,68 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ title }}</title>
-  <style>html,body{margin:0;min-height:100%;background:#f7fafb}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#14212b}button,input,select,textarea{box-sizing:border-box}</style>
+  <meta name="robots" content="noindex,nofollow">
+  <title>{{ title }}{% if company %} · {{ company }}{% endif %}</title>
+  <style>
+    :root { color-scheme: light; --ink:#14212b; --muted:#5b6c77; --line:#dde7e8; --accent:#087f8c; --wash:#eef6f6; --ok:#087f5b; --late:#b23a48; }
+    * { box-sizing:border-box; }
+    html, body { margin:0; min-height:100%; background:#f6f8f9; }
+    body { font:16px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; color:var(--ink); }
+    .hv-shell { max-width:1000px; margin:6vh auto; padding:0 22px; }
+    .hv-top { display:flex; justify-content:space-between; align-items:baseline; gap:16px; }
+    .hv-company { font-size:15px; font-weight:750; letter-spacing:-.01em; }
+    .hv-meta { color:var(--muted); font-size:13px; }
+    .hv-card { margin-top:16px; border:1px solid var(--line); border-radius:16px; padding:30px; background:#fff; box-shadow:0 10px 28px #16333b10; }
+    h1 { font-size:clamp(28px,4vw,42px); line-height:1.08; margin:4px 0 10px; letter-spacing:-.03em; }
+    h2 { font-size:15px; margin:28px 0 8px; }
+    .hv-sub { color:var(--muted); font-size:17px; margin:0 0 22px; max-width:640px; }
+    .hv-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin:22px 0; }
+    .hv-stat { background:var(--wash); border-radius:12px; padding:13px 14px; min-width:0; }
+    .hv-label { color:var(--muted); font-size:12px; }
+    .hv-value { margin-top:4px; font-weight:700; overflow-wrap:anywhere; }
+    .hv-ok { color:var(--ok); } .hv-late { color:var(--late); }
+    .hv-notice { border-radius:10px; padding:13px 15px; margin:18px 0; font-weight:650; }
+    .hv-notice.ok { background:#e6f6ef; color:var(--ok); } .hv-notice.error { background:#fdeff1; color:#9e2d3b; }
+    table { width:100%; border-collapse:collapse; margin-top:8px; }
+    th, td { text-align:left; padding:12px 10px; border-bottom:1px solid #e8eef0; font-size:14px; vertical-align:top; }
+    th { color:var(--muted); font-size:12px; font-weight:650; text-transform:uppercase; letter-spacing:.05em; }
+    td.num, th.num { text-align:right; }
+    .hv-form { display:grid; gap:14px; margin-top:26px; max-width:460px; }
+    .hv-form label { display:grid; gap:6px; font-weight:650; }
+    .hv-form input, .hv-form select, .hv-form textarea { width:100%; border:1px solid #c7d6d8; border-radius:9px; padding:10px 11px; font:inherit; background:#fff; }
+    .hv-form button { justify-self:start; background:var(--accent); color:#fff; border:0; border-radius:9px; padding:11px 18px; font-family:inherit; font-size:15px; font-weight:700; line-height:1.2; cursor:pointer; }
+    a { color:var(--accent); font-weight:650; }
+    .hv-nowrap { white-space:nowrap; }
+    .hv-foot { color:var(--muted); font-size:12px; margin:22px 0 0; }
+    @media (max-width:640px) {
+      .hv-shell { margin:3vh auto; padding:0 14px; }
+      .hv-top { flex-direction:column; gap:2px; }
+      .hv-card { padding:20px; border-radius:14px; }
+      .hv-grid { grid-template-columns:1fr 1fr; }
+      h1 { font-size:30px; }
+      table.hv-stack, .hv-stack thead, .hv-stack tbody, .hv-stack tr, .hv-stack td { display:block; }
+      .hv-stack thead { position:absolute; left:-9999px; }
+      .hv-stack tr { padding:10px 0; border-bottom:1px solid #e8eef0; }
+      .hv-stack td { border:0; padding:3px 0; text-align:left; }
+      .hv-stack td::before { content:attr(data-label); display:block; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.05em; }
+      .hv-form button { justify-self:stretch; }
+    }
+  </style>
 </head>
 <body>
-<style>
-  :root { color-scheme: light; --ink:#14212b; --muted:#60717c; --accent:#b23a48; }
-  .m3-shell { max-width: 980px; margin: 6vh auto; padding: 0 22px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color:var(--ink); }
-  .m3-brand { letter-spacing:.12em; text-transform:uppercase; font-size:12px; font-weight:700; color:var(--accent); }
-  .m3-card { margin-top:18px; border:1px solid #ead8d4; border-radius:18px; padding:30px; box-shadow:0 12px 30px #3b1e1612; background:white; overflow:auto; }
-  h1 { font-size:clamp(28px,4vw,46px); line-height:1.06; margin:12px 0; letter-spacing:-.03em; } .m3-sub{color:var(--muted);font-size:17px}
-  table { width:100%; border-collapse:collapse; margin-top:24px; } th,td{text-align:left;padding:13px 10px;border-bottom:1px solid #f0e4e1;font-size:14px} th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em}.m3-late{color:#b23a48;font-weight:700}.m3-label{color:var(--muted);font-size:12px}
-  @media(max-width:600px){.m3-shell{margin:3vh auto;padding:0 16px}.m3-card{padding:22px;border-radius:14px}h1{font-size:32px}table,thead,tbody,tr,th,td{display:block}thead{position:absolute;left:-9999px}tr{padding:12px 0;border-bottom:1px solid #f0e4e1}td{border:0;padding:5px 0}td::before{content:attr(data-label);display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em}}
-</style>
-<div class="m3-shell"><div class="m3-brand">Helios Order Visibility · buyer workspace</div><div class="m3-card"><h1>Late supplier lines</h1><p class="m3-sub">Open purchase-order lines past their promised date.</p>
-{% if error %}<p>{{ error }}</p>{% elif rows %}<table><thead><tr><th>Purchase order</th><th>Supplier</th><th>Item</th><th>Schedule</th><th>Status</th></tr></thead><tbody>{% for row in rows %}<tr><td data-label="Purchase order">{{ row.purchase_order }}</td><td data-label="Supplier">{{ row.supplier }}</td><td data-label="Item">{{ row.item_code }}</td><td data-label="Schedule">{{ row.schedule_date }}</td><td data-label="Status" class="m3-late">{{ row.otd_status }}</td></tr>{% endfor %}</tbody></table>{% else %}<p>No late open lines.</p>{% endif %}<p class="m3-label">{{ sample_label }}</p></div></div>
-
+<main class="hv-shell">
+  <div class="hv-top"><div class="hv-company">{{ company or "Order portal" }}</div><div class="hv-meta">Late lines · {{ today }}</div></div>
+  <section class="hv-card">
+    <h1>Late supplier lines</h1>
+    <p class="hv-sub">Open purchase-order lines past their required-by date as of {{ today }}.</p>
+{% if error %}<div class="hv-notice error">{{ error|e }}</div>{% elif rows %}
+    <table class="hv-stack"><thead><tr><th>Purchase order</th><th>Supplier</th><th>Item</th><th class="num">Qty</th><th>Required by</th><th class="num">Days late</th></tr></thead><tbody>
+    {% for row in rows %}<tr><td data-label="Purchase order">{{ row.purchase_order }}</td><td data-label="Supplier">{{ row.supplier }}</td><td data-label="Item">{{ row.item_code }}</td><td data-label="Qty" class="num">{{ row.qty_display }}</td><td data-label="Required by" class="hv-late">{{ row.schedule_display }}</td><td data-label="Days late" class="num hv-late"><strong>{{ row.days_late }}</strong></td></tr>{% endfor %}
+    </tbody></table>
+{% else %}<p>No late open lines.</p>{% endif %}
+    <p class="hv-foot"><a href="/helios/otd">All supplier lines</a></p>
+  </section>
+  <p class="hv-foot">Signed in as {{ frappe.session.user }}. Dates use the site time zone.</p>
+</main>
 </body>
 </html>

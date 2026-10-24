@@ -1,0 +1,21 @@
+Example Manufacturing Oy
+Supplier confirmation
+Purchase order PO-1042
+
+Example Manufacturing Oy asks Example Supplier Ltd to confirm the delivery date for this order. This private link works until 2026-10-31.
+
+Purchase order
+PO-1042
+Supplier
+Example Supplier Ltd
+Requested by
+2026-11-04
+Status
+Confirmed
+Order lines
+ITEM	QTY	REQUIRED BY
+BRKT-6061-A
+Bracket blank, 6061 aluminium	24 Nos	2026-11-07
+Thank you. Example Manufacturing Oy has your confirmation with delivery on 2026-11-07.
+
+2026-10-24 · Only this purchase order is shown. Sent from Example Manufacturing Oy's ERPNext with Helios Order Visibility.

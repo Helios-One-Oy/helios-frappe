@@ -3,29 +3,84 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ title }}</title>
-  <style>html,body{margin:0;min-height:100%;background:#f7fafb}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#14212b}button,input,select,textarea{box-sizing:border-box}</style>
+  <meta name="robots" content="noindex,nofollow">
+  <title>{{ title }}{% if company %} · {{ company }}{% endif %}</title>
+  <style>
+    :root { color-scheme: light; --ink:#14212b; --muted:#5b6c77; --line:#dde7e8; --accent:#087f8c; --wash:#eef6f6; --ok:#087f5b; --late:#b23a48; }
+    * { box-sizing:border-box; }
+    html, body { margin:0; min-height:100%; background:#f6f8f9; }
+    body { font:16px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; color:var(--ink); }
+    .hv-shell { max-width:820px; margin:6vh auto; padding:0 22px; }
+    .hv-top { display:flex; justify-content:space-between; align-items:baseline; gap:16px; }
+    .hv-company { font-size:15px; font-weight:750; letter-spacing:-.01em; }
+    .hv-meta { color:var(--muted); font-size:13px; }
+    .hv-card { margin-top:16px; border:1px solid var(--line); border-radius:16px; padding:30px; background:#fff; box-shadow:0 10px 28px #16333b10; }
+    h1 { font-size:clamp(28px,4vw,42px); line-height:1.08; margin:4px 0 10px; letter-spacing:-.03em; }
+    h2 { font-size:15px; margin:28px 0 8px; }
+    .hv-sub { color:var(--muted); font-size:17px; margin:0 0 22px; max-width:640px; }
+    .hv-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin:22px 0; }
+    .hv-stat { background:var(--wash); border-radius:12px; padding:13px 14px; min-width:0; }
+    .hv-label { color:var(--muted); font-size:12px; }
+    .hv-value { margin-top:4px; font-weight:700; overflow-wrap:anywhere; }
+    .hv-ok { color:var(--ok); } .hv-late { color:var(--late); }
+    .hv-notice { border-radius:10px; padding:13px 15px; margin:18px 0; font-weight:650; }
+    .hv-notice.ok { background:#e6f6ef; color:var(--ok); } .hv-notice.error { background:#fdeff1; color:#9e2d3b; }
+    table { width:100%; border-collapse:collapse; margin-top:8px; }
+    th, td { text-align:left; padding:12px 10px; border-bottom:1px solid #e8eef0; font-size:14px; vertical-align:top; }
+    th { color:var(--muted); font-size:12px; font-weight:650; text-transform:uppercase; letter-spacing:.05em; }
+    td.num, th.num { text-align:right; }
+    .hv-form { display:grid; gap:14px; margin-top:26px; max-width:460px; }
+    .hv-form label { display:grid; gap:6px; font-weight:650; }
+    .hv-form input, .hv-form select, .hv-form textarea { width:100%; border:1px solid #c7d6d8; border-radius:9px; padding:10px 11px; font:inherit; background:#fff; }
+    .hv-form button { justify-self:start; background:var(--accent); color:#fff; border:0; border-radius:9px; padding:11px 18px; font-family:inherit; font-size:15px; font-weight:700; line-height:1.2; cursor:pointer; }
+    a { color:var(--accent); font-weight:650; }
+    .hv-nowrap { white-space:nowrap; }
+    .hv-foot { color:var(--muted); font-size:12px; margin:22px 0 0; }
+    @media (max-width:640px) {
+      .hv-shell { margin:3vh auto; padding:0 14px; }
+      .hv-top { flex-direction:column; gap:2px; }
+      .hv-card { padding:20px; border-radius:14px; }
+      .hv-grid { grid-template-columns:1fr 1fr; }
+      h1 { font-size:30px; }
+      table.hv-stack, .hv-stack thead, .hv-stack tbody, .hv-stack tr, .hv-stack td { display:block; }
+      .hv-stack thead { position:absolute; left:-9999px; }
+      .hv-stack tr { padding:10px 0; border-bottom:1px solid #e8eef0; }
+      .hv-stack td { border:0; padding:3px 0; text-align:left; }
+      .hv-stack td::before { content:attr(data-label); display:block; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.05em; }
+      .hv-form button { justify-self:stretch; }
+    }
+  </style>
 </head>
 <body>
-<style>
-  :root { color-scheme: light; --ink:#14212b; --muted:#60717c; --accent:#087f8c; --wash:#eef7f6; }
-  .m3-shell { max-width: 820px; margin: 6vh auto; padding: 0 22px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color:var(--ink); }
-  .m3-brand { letter-spacing:.12em; text-transform:uppercase; font-size:12px; font-weight:700; color:var(--accent); }
-  .m3-card { margin-top:18px; border:1px solid #d8e4e5; border-radius:18px; padding:30px; box-shadow:0 12px 30px #16333b12; background:white; }
-  h1 { font-size:clamp(28px,4vw,46px); line-height:1.06; margin:12px 0; letter-spacing:-.03em; }
-  .m3-sub { color:var(--muted); font-size:17px; margin:0 0 24px; }
-  .m3-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:24px 0; }
-  .m3-stat { background:var(--wash); border-radius:12px; padding:14px; } .m3-label { color:var(--muted); font-size:12px; } .m3-value { margin-top:5px; font-weight:700; }
-  .m3-ok { color:#087f5b; font-weight:700; } .m3-error { color:#a83232; font-weight:600; }
-  @media(max-width:600px){ .m3-shell{margin:3vh auto;padding:0 16px}.m3-card{padding:22px;border-radius:14px}.m3-grid{grid-template-columns:1fr 1fr} h1{font-size:32px} }
-</style>
-<div class="m3-shell"><div class="m3-brand">Helios Order Visibility · review surface</div>
-  <div class="m3-card"><h1>Customer order tracking</h1><p class="m3-sub">A read-only status view for a fictional customer order.</p>
-  {% if error %}<p class="m3-error">{{ error }}</p>{% elif snapshot %}
-    <div class="m3-grid"><div class="m3-stat"><div class="m3-label">Sales order</div><div class="m3-value">{{ snapshot.reference_name }}</div></div><div class="m3-stat"><div class="m3-label">Customer</div><div class="m3-value">{{ snapshot.customer }}</div></div><div class="m3-stat"><div class="m3-label">Status</div><div class="m3-value m3-ok">{{ snapshot.status }}</div></div></div>
-    <p class="m3-label">{{ snapshot["items"]|length }} line item(s) · {{ sample_label }}</p>
-  {% endif %}</div>
-</div>
-
+<main class="hv-shell">
+  <div class="hv-top"><div class="hv-company">{{ company or "Order portal" }}</div><div class="hv-meta">Order status</div></div>
+  <section class="hv-card">
+{% if error %}
+    <h1>Link not valid</h1>
+    <div class="hv-notice error">{{ error|e }}</div>
+    <p class="hv-sub">Ask your contact{% if company %} at {{ company }}{% endif %} to send a new tracking link.</p>
+{% elif snapshot %}{% set s = snapshot %}
+    <h1>{{ "Order" if s.reference_doctype == "Sales Order" else "Shipment" }} <span class="hv-nowrap">{{ s.reference_name }}</span></h1>
+    <p class="hv-sub">Current status of your {{ "order" if s.reference_doctype == "Sales Order" else "shipment" }} with {{ s.company or company }}.</p>
+    <div class="hv-grid">
+      <div class="hv-stat"><div class="hv-label">Customer</div><div class="hv-value">{{ s.customer }}</div></div>
+      <div class="hv-stat"><div class="hv-label">Status</div><div class="hv-value hv-ok">{{ s.status }}</div></div>
+      {% if s.reference_doctype == "Sales Order" %}
+      <div class="hv-stat"><div class="hv-label">Ordered</div><div class="hv-value">{{ s.transaction_date_display }}</div></div>
+      <div class="hv-stat"><div class="hv-label">Expected delivery</div><div class="hv-value">{{ s.delivery_date_display or "To be confirmed" }}</div></div>
+      {% else %}
+      <div class="hv-stat"><div class="hv-label">Shipped</div><div class="hv-value">{{ s.posting_date_display }}</div></div>
+      <div class="hv-stat"><div class="hv-label">Sales order</div><div class="hv-value">{{ s.sales_order or "" }}</div></div>
+      {% endif %}
+    </div>
+    {% if s["items"] %}<h2>Lines</h2>
+    <table class="hv-stack"><thead><tr><th>Item</th><th class="num">Ordered</th>{% if s.reference_doctype == "Sales Order" %}<th class="num">Delivered</th><th>Expected</th>{% endif %}</tr></thead><tbody>
+    {% for item in s["items"] %}<tr><td data-label="Item"><strong>{{ item.item_code }}</strong>{% if item.item_name and item.item_name != item.item_code %}<br>{{ item.item_name }}{% endif %}</td><td data-label="Ordered" class="num">{{ item.qty_display }} {{ item.uom or "" }}</td>{% if s.reference_doctype == "Sales Order" %}<td data-label="Delivered" class="num">{{ item.delivered_display }}</td><td data-label="Expected">{{ item.schedule_display }}</td>{% endif %}</tr>{% endfor %}
+    </tbody></table>{% endif %}
+    {% if s.delivery_notes %}<h2>Shipments</h2><p>{% for dn in s.delivery_notes %}{{ dn.parent }} ({{ dn.qty }}){% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+{% endif %}
+  </section>
+  <p class="hv-foot">{{ today }} · Read-only view of this order. Sent from {{ company or "your supplier" }}&#39;s ERPNext with Helios Order Visibility.</p>
+</main>
 </body>
 </html>

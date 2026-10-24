@@ -1,0 +1,40 @@
+{
+  "company": "Example Manufacturing Oy",
+  "time_zone": "Europe/Helsinki",
+  "site_today": "2026-10-24",
+  "anonymous_otd": 403,
+  "anonymous_otd_after_login": 403,
+  "anonymous_late_lines_after_login": 403,
+  "supplier_get": 200,
+  "second_link_not_cached": true,
+  "supplier_ui_post_writeback": {
+    "purchase_order": "PO-1042",
+    "company": "Example Manufacturing Oy",
+    "supplier": "Example Supplier Ltd",
+    "status": "Confirmed",
+    "transaction_date": "2026-09-24",
+    "requested_date": "2026-11-04",
+    "schedule_date": "2026-11-07",
+    "items": [
+      {
+        "item_code": "BRKT-6061-A",
+        "item_name": "Bracket blank, 6061 aluminium",
+        "qty": 24.0,
+        "uom": "Nos",
+        "schedule_date": "2026-11-07"
+      }
+    ],
+    "expires_at": 1793465283,
+    "expires_on": "2026-10-31"
+  },
+  "supplier_api_replay": {
+    "status": "Confirmed",
+    "schedule_date": "2026-11-07",
+    "idempotent": true
+  },
+  "tracking_get": 200,
+  "otd_ui": 200,
+  "late_lines_ui": 200,
+  "runtime_pages_free_of_demo_wording": true,
+  "screenshots": "PASS"
+}

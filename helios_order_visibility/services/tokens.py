@@ -13,6 +13,8 @@ import secrets
 from datetime import datetime, timezone
 from typing import Any
 
+from .common import frappe_datetime, from_site_naive, site_now, to_site_naive
+
 TOKEN_VERSION = "1"
 TOKEN_DOCTYPE = "Helios Tracking Token"
 ALLOWED_PURPOSES = {"supplier_confirmation", "customer_tracking"}
@@ -58,10 +60,6 @@ def _utc(value: Any) -> datetime:
     return result.astimezone(timezone.utc)
 
 
-def _iso(value: datetime) -> str:
-    return _utc(value).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-
-
 def issue_token(doctype: str, docname: str, purpose: str, expires_at: Any, metadata: dict[str, Any] | None = None) -> tuple[str, str]:
     if purpose not in ALLOWED_PURPOSES:
         raise TokenError("unsupported token purpose")
@@ -81,9 +79,9 @@ def issue_token(doctype: str, docname: str, purpose: str, expires_at: Any, metad
         "reference_doctype": doctype,
         "reference_name": docname,
         "purpose": purpose,
-        # Frappe/MariaDB Datetime fields require a SQL datetime literal;
-        # retain UTC while omitting the ISO ``T``/``Z`` markers.
-        "expires_at": _utc(expires).replace(tzinfo=None).strftime("%Y-%m-%d %H:%M:%S"),
+        # Frappe Datetime fields hold naive values in the site's time zone,
+        # so desk users see the real local expiry.
+        "expires_at": frappe_datetime(to_site_naive(_frappe(), expires)),
         "status": "Active",
     }
     if metadata:
@@ -120,7 +118,7 @@ def decode_and_validate(raw: str, expected_purpose: str | None = None) -> dict[s
     stored_expiry = row.get("expires_at")
     if stored_expiry:
         try:
-            if _utc(stored_expiry) <= datetime.now(timezone.utc):
+            if from_site_naive(frappe, stored_expiry) <= datetime.now(timezone.utc):
                 raise TokenError("token expired")
         except (TypeError, ValueError) as exc:
             raise TokenError("invalid token expiry") from exc
@@ -137,7 +135,7 @@ def revoke_token(jti: str):
 
 def expire_due_tokens():
     frappe = _frappe()
-    now = _iso(datetime.now(timezone.utc))
+    now = frappe_datetime(site_now(frappe))
     names = frappe.get_all(TOKEN_DOCTYPE, filters={"status": "Active", "expires_at": ["<", now]}, pluck="name")
     for name in names:
         row = frappe.db.get_value(TOKEN_DOCTYPE, name,

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import timedelta
 
-from .common import field, now_utc, public_base_url
+from .common import company_display_name, field, now_utc, public_base_url
 from .tokens import TOKEN_DOCTYPE, decode_and_validate, issue_token, revoke_token
 
 
@@ -77,7 +77,7 @@ def tracking_snapshot(raw_token):
     if doctype not in {"Sales Order", "Delivery Note"}:
         raise ValueError("unsupported tracking reference")
     doc = frappe.get_doc(doctype, name)
-    snapshot = {"reference_doctype": doctype, "reference_name": name, "status": field(doc, "status"), "transaction_date": str(field(doc, "transaction_date") or ""), "customer": field(doc, "customer_name") or field(doc, "customer"), "items": _safe_items(doctype, name)}
+    snapshot = {"reference_doctype": doctype, "reference_name": name, "company": company_display_name(frappe, field(doc, "company")), "status": field(doc, "status"), "transaction_date": str(field(doc, "transaction_date") or ""), "customer": field(doc, "customer_name") or field(doc, "customer"), "items": _safe_items(doctype, name)}
     if doctype == "Sales Order":
         snapshot.update({"delivery_date": str(field(doc, "delivery_date") or ""), "per_delivered": field(doc, "per_delivered"), "delivery_notes": frappe.get_all("Delivery Note Item", filters={"against_sales_order": name}, fields=["parent", "qty"])})
     else:

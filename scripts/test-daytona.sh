@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-mkdir -p "$ROOT/proof"
-LOG="$ROOT/proof/bench-test-$(date -u +%Y%m%dT%H%M%SZ).log"
+# FRAPPE_BRANCH selects the Frappe/ERPNext release line (version-16 is the
+# current stable; version-15 is still supported). Each line writes its own
+# proof directory so both runs can be kept side by side.
+FRAPPE_BRANCH="${FRAPPE_BRANCH:-version-16}"
+export HELIOS_PROOF_ROOT="$ROOT/proof/${FRAPPE_BRANCH}"
+mkdir -p "$HELIOS_PROOF_ROOT"
+LOG="$HELIOS_PROOF_ROOT/bench-test-$(date -u +%Y%m%dT%H%M%SZ).log"
 if [[ "${DAYTONA_CHILD:-}" == 1 ]]; then
   set -o pipefail
   # `pip --user` places bench under ~/.local/bin in a clean Daytona image.
@@ -13,9 +18,15 @@ if [[ "${DAYTONA_CHILD:-}" == 1 ]]; then
     echo "bench is not installed in this Daytona image; installing frappe-bench" | tee "$LOG"
     python3 -m pip install --user frappe-bench >>"$LOG" 2>&1
   fi
-  # Frappe v15 does not support Python 3.14.  The daytona-large image ships
-  # Debian's 3.13 runtime; prefer it when present and record the choice.
-  PYTHON_BIN="$(command -v python3.13 || command -v python3)"
+  # Frappe v15 needs Python <=3.13 and v16 needs 3.14; record the choice.
+  if [[ "$FRAPPE_BRANCH" == version-15 ]]; then
+    PYTHON_BIN="$(command -v python3.13 || command -v python3)"
+  else
+    PYTHON_BIN="$(command -v python3.14 || command -v python3)"
+  fi
+  echo "frappe_branch=$FRAPPE_BRANCH" | tee -a "$LOG"
+  "$PYTHON_BIN" --version | tee -a "$LOG"
+  node --version | tee -a "$LOG"
   echo "python_bin=$PYTHON_BIN" | tee -a "$LOG"
   sudo service mariadb start >>"$LOG" 2>&1 || true
   sudo service redis-server start >>"$LOG" 2>&1 || true
@@ -34,9 +45,9 @@ if [[ "${DAYTONA_CHILD:-}" == 1 ]]; then
     sleep 1
   done
   if [[ ! -d "$HOME/frappe-bench/apps/frappe" ]]; then
-    bench init --skip-redis-config-generation --skip-assets --python "$PYTHON_BIN" --frappe-branch version-15 "$HOME/frappe-bench" >>"$LOG" 2>&1
+    bench init --skip-redis-config-generation --skip-assets --python "$PYTHON_BIN" --frappe-branch "$FRAPPE_BRANCH" "$HOME/frappe-bench" >>"$LOG" 2>&1
     cd "$HOME/frappe-bench"
-    bench get-app --branch version-15 erpnext >>"$LOG" 2>&1
+    bench get-app --branch "$FRAPPE_BRANCH" erpnext >>"$LOG" 2>&1
     # bench get-app's local-path parser assumes a hosted org/repo and crashes
     # on a filesystem path with recent bench releases.  Install this private
     # app from the mounted source tree explicitly, which is also repeatable in
@@ -63,10 +74,10 @@ if [[ "${DAYTONA_CHILD:-}" == 1 ]]; then
     bench --site helios.local execute helios_order_visibility.patches.v1_0.ensure_custom_fields >>"$LOG" 2>&1
   fi
   cd "$HOME/frappe-bench"
-  mkdir -p "$ROOT/proof/live" "$ROOT/proof/screenshots"
+  mkdir -p "$HELIOS_PROOF_ROOT/live" "$HELIOS_PROOF_ROOT/screenshots"
   echo "clean_install_http_ui=BEGIN" | tee -a "$LOG"
-  HELIOS_PROOF_DIR="$ROOT/proof/live" bench --site helios.local execute helios_order_visibility.live_seed.run 2>&1 | tee "$ROOT/proof/live/seed-console.log" | tee -a "$LOG"
-  bench --site helios.local serve --port 8000 >"$ROOT/proof/live/frappe-server.log" 2>&1 &
+  HELIOS_PROOF_DIR="$HELIOS_PROOF_ROOT/live" bench --site helios.local execute helios_order_visibility.tests.live_seed.run 2>&1 | tee "$HELIOS_PROOF_ROOT/live/seed-console.log" | tee -a "$LOG"
+  bench --site helios.local serve --port 8000 >"$HELIOS_PROOF_ROOT/live/frappe-server.log" 2>&1 &
   SERVER_PID=$!
   trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
   for i in $(seq 1 60); do
@@ -74,13 +85,14 @@ if [[ "${DAYTONA_CHILD:-}" == 1 ]]; then
     sleep 1
   done
   python3 "$ROOT/scripts/live-browser.py" | tee -a "$LOG"
+  bench --site helios.local execute helios_order_visibility.tests.live_seed.db_snapshot 2>&1 | tee "$HELIOS_PROOF_ROOT/live/db-after-ui.txt" | tee -a "$LOG"
   # Proof artifacts are committed for review; remove replayable capability
-  # values while leaving routes, status codes and sample labels intact.
-  find "$ROOT/proof/live" -type f \( -name '*.log' -o -name '*.json' -o -name '*.html' -o -name '*.txt' \) -print0 | xargs -0 -r sed -E -i \
+  # values while leaving routes and status codes intact.
+  find "$HELIOS_PROOF_ROOT/live" -type f \( -name '*.log' -o -name '*.json' -o -name '*.html' -o -name '*.txt' \) -print0 | xargs -0 -r sed -E -i \
     -e 's/(token=)[^&" <>]+/\1REDACTED_TOKEN/g' \
     -e 's/(name="token" value=")[^"]+/\1REDACTED_TOKEN/g' \
     -e 's/(name="csrf" value=")[^"]+/\1REDACTED_TOKEN/g' \
-    -e 's/("(supplier_token|customer_token)"[[:space:]]*:[[:space:]]*")[^"]+/\1REDACTED_TOKEN/g'
+    -e 's/("(supplier_token|customer_token|late_token)"[[:space:]]*:[[:space:]]*")[^"]+/\1REDACTED_TOKEN/g'
   echo "screenshots=PASS" | tee -a "$LOG"
   set +e
   bench --site helios.local run-tests --app helios_order_visibility 2>&1 | tee -a "$LOG"
@@ -97,7 +109,10 @@ if ! command -v drun >/dev/null 2>&1; then
   echo "drun is required; this script is intentionally Daytona-only" >&2
   exit 2
 fi
- # drun mounts this repository as the command working directory.  Use a
- # relative path so the child does not try to resolve the host's absolute
- # /home/ubuntu path inside the sandbox.
-DRUN_BACKEND=fly drun --snapshot daytona-large --setup "sudo apt-get update -qq && sudo apt-get install -y -qq mariadb-server redis-server cron python3.13 python3.13-dev python3.13-venv python3-pip build-essential nodejs npm yarnpkg chromium curl && sudo npm install -g yarn@1.22.22 && python3 -m pip install --user --break-system-packages playwright" -- env DAYTONA_CHILD=1 bash scripts/test-daytona.sh
+# drun mounts this repository as the command working directory.  Use a
+# relative path so the child does not try to resolve the host's absolute
+# /home/ubuntu path inside the sandbox.  drun uses Daytona and overflows to
+# Fly only when the Daytona pool is full.
+# Node 24 (required by Frappe v16) comes from the official tarball so both
+# release lines build with the same toolchain.
+drun --snapshot daytona-large --setup "sudo apt-get update -qq && sudo apt-get install -y -qq mariadb-server redis-server cron python3.13 python3.13-dev python3.13-venv python3-pip build-essential pkg-config libmariadb-dev chromium curl xz-utils && (sudo apt-get install -y -qq python3.14 python3.14-dev python3.14-venv || true) && curl -fsSL https://nodejs.org/dist/v24.11.0/node-v24.11.0-linux-x64.tar.xz | sudo tar -xJ -C /usr/local --strip-components=1 && sudo npm install -g yarn@1.22.22 && python3 -m pip install --user --break-system-packages playwright" -- env DAYTONA_CHILD=1 FRAPPE_BRANCH="$FRAPPE_BRANCH" bash scripts/test-daytona.sh

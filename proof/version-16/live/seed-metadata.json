@@ -1,0 +1,23 @@
+{
+  "demo_data": "fictional demo fixture",
+  "today": "2026-10-24",
+  "today_display": "2026-10-24",
+  "time_zone": "Europe/Helsinki",
+  "on_time_date": "2026-11-04",
+  "late_date": "2026-10-01",
+  "confirm_date": "2026-11-07",
+  "company": "Example Manufacturing Oy",
+  "supplier": "Example Supplier Ltd",
+  "customer": "Example Customer Inc",
+  "purchase_order": "PO-1042",
+  "sales_order": "SO-2007",
+  "supplier_token": "REDACTED_TOKEN",
+  "customer_token": "REDACTED_TOKEN",
+  "late_token": "REDACTED_TOKEN",
+  "supplier_url": "http://127.0.0.1:8000/helios/confirm?token=REDACTED_TOKEN",
+  "customer_url": "http://127.0.0.1:8000/helios/track?token=REDACTED_TOKEN",
+  "supplier_status": "Pending",
+  "tracking_status": "Active",
+  "writeback": "pending_http_confirmation",
+  "idempotent": "pending_http_replay"
+}

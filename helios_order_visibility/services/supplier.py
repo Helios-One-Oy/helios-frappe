@@ -5,7 +5,7 @@ from datetime import datetime, timedelta, timezone
 from email.utils import parseaddr
 from typing import Any
 
-from .common import field, now_utc, public_base_url
+from .common import company_display_name, field, frappe_datetime, from_site_naive, now_utc, public_base_url, site_date_from_epoch, site_now
 from .tokens import TOKEN_DOCTYPE, decode_and_validate, issue_token, revoke_token
 
 PO_PATTERN = re.compile(r"\b(?:PO[-\s]?[A-Z0-9-]+|Purchase\s+Order\s*[:#]?\s*(?:PO[-\s]?)?[A-Z0-9-]+)\b", re.I)
@@ -59,10 +59,7 @@ def _token_is_current(row):
     if not expires_at:
         return False
     try:
-        value = datetime.fromisoformat(str(expires_at).replace("Z", "+00:00"))
-        if value.tzinfo is None:
-            value = value.replace(tzinfo=timezone.utc)
-        return value > datetime.now(timezone.utc)
+        return from_site_naive(_frappe(), expires_at) > datetime.now(timezone.utc)
     except (TypeError, ValueError):
         return False
 
@@ -163,7 +160,7 @@ def _write_confirmation_audit(po, status, schedule_date, source, message_id=None
         "status": status,
         "schedule_date": schedule_date,
         "confirmation_source": source,
-        "confirmed_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S"),
+        "confirmed_at": frappe_datetime(site_now(frappe)),
         "message_id": message_id,
         "note": note,
     }
@@ -192,7 +189,7 @@ def confirm_from_token(raw_token: str, confirmed: bool = True, schedule_date: st
         return {"status": current, "schedule_date": old_date, "idempotent": True}
     values = {
         "helios_confirmation_status": target,
-        "helios_supplier_confirmed_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S"),
+        "helios_supplier_confirmed_at": frappe_datetime(site_now(frappe)),
         "helios_supplier_schedule_date": schedule_date,
         "helios_confirmation_source": source,
     }
@@ -202,6 +199,32 @@ def confirm_from_token(raw_token: str, confirmed: bool = True, schedule_date: st
     _set_item_schedule(po, schedule_date)
     _write_confirmation_audit(po, target, schedule_date, source, message_id, note)
     return {"status": target, "schedule_date": schedule_date, "idempotent": False}
+
+
+def supplier_confirmation_view(raw_token: str) -> dict[str, Any]:
+    """What the supplier sees behind a signed link: their PO, nothing else."""
+    claims = decode_and_validate(raw_token, "supplier_confirmation")
+    frappe = _frappe()
+    po = frappe.get_doc("Purchase Order", claims["name"])
+    items = [{
+        "item_code": field(item, "item_code"),
+        "item_name": field(item, "item_name"),
+        "qty": field(item, "qty"),
+        "uom": field(item, "uom") or field(item, "stock_uom"),
+        "schedule_date": field(item, "schedule_date"),
+    } for item in (getattr(po, "items", None) or [])]
+    return {
+        "purchase_order": claims["name"],
+        "company": company_display_name(frappe, field(po, "company")),
+        "supplier": field(po, "supplier_name") or field(po, "supplier"),
+        "status": field(po, "helios_confirmation_status") or "Pending",
+        "transaction_date": field(po, "transaction_date"),
+        "requested_date": field(po, "schedule_date") or next((i["schedule_date"] for i in items if i["schedule_date"]), None),
+        "schedule_date": field(po, "helios_supplier_schedule_date"),
+        "items": items,
+        "expires_at": claims["exp"],
+        "expires_on": site_date_from_epoch(frappe, claims["exp"]),
+    }
 
 
 def process_incoming_email(sender: str, subject: str, body: str, message_id: str | None = None):
@@ -244,7 +267,7 @@ def process_incoming_email(sender: str, subject: str, body: str, message_id: str
             result = {"status": current, "idempotent": True, "schedule_date": field(po, "helios_supplier_schedule_date")}
         else:
             schedule_date = _validate_schedule(parsed["schedule_date"])
-            _set_po_fields(po_name, {"helios_confirmation_status": target, "helios_supplier_confirmed_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S"), "helios_supplier_schedule_date": schedule_date, "helios_confirmation_source": "email", "helios_confirmation_message_id": message_id})
+            _set_po_fields(po_name, {"helios_confirmation_status": target, "helios_supplier_confirmed_at": frappe_datetime(site_now(frappe)), "helios_supplier_schedule_date": schedule_date, "helios_confirmation_source": "email", "helios_confirmation_message_id": message_id})
             _set_item_schedule(po, schedule_date)
             _write_confirmation_audit(po, target, schedule_date, "email", message_id)
             result = {"status": target, "idempotent": False, "schedule_date": parsed["schedule_date"]}

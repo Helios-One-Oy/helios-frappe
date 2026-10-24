@@ -32,6 +32,8 @@ class MemoryDB:
         return (doctype, name) in self.rows
 
     def get_value(self, doctype, name, fields, as_dict=False):
+        if isinstance(name, dict):
+            name = next((key[1] for key in self.rows if key[0] == doctype), None)
         row = self.rows.get((doctype, name))
         if row is None:
             return None
@@ -119,7 +121,7 @@ def fake_frappe(monkeypatch):
 
     fake = types.SimpleNamespace(
         conf={"encryption_key": "test-key"}, db=db, get_doc=get_doc, get_all=get_all,
-        local=types.SimpleNamespace(form_dict={}), utils=types.SimpleNamespace(get_url=lambda: "https://site.invalid"),
+        local=types.SimpleNamespace(form_dict={}), utils=types.SimpleNamespace(get_url=lambda: "https://site.invalid", get_system_timezone=lambda: "Europe/Helsinki"),
         get_conf=lambda: {"encryption_key": "test-key"}, log_error=lambda *args: None,
         get_traceback=lambda: "traceback",
     )
@@ -162,3 +164,32 @@ def test_customer_tracking_is_filtered_to_safe_fields(monkeypatch):
     assert snapshot["customer"] == "Fictional Acme"
     assert snapshot["items"][0]["item_code"] == "SAMPLE-BRACKET"
     assert "rate" not in snapshot["items"][0]
+
+
+def test_token_expiry_is_stored_in_site_time_zone(monkeypatch):
+    from zoneinfo import ZoneInfo
+    from helios_order_visibility.services.supplier import _token_is_current
+    from helios_order_visibility.services.tokens import decode_and_validate
+
+    fake, po, _ = fake_frappe(monkeypatch)
+    expires = datetime(2030, 1, 15, 22, 30, tzinfo=timezone.utc)
+    raw, jti = issue_token("Purchase Order", po.name, "supplier_confirmation", expires)
+    stored = fake.db.rows[("Helios Tracking Token", jti)]["expires_at"]
+    assert stored == expires.astimezone(ZoneInfo("Europe/Helsinki")).strftime("%Y-%m-%d %H:%M:%S") == "2030-01-16 00:30:00"
+    assert decode_and_validate(raw, "supplier_confirmation")["name"] == po.name
+    assert _token_is_current({"expires_at": stored})
+    assert not _token_is_current({"expires_at": "2020-01-01 00:00:00"})
+
+
+def test_supplier_view_shows_owning_company_and_lines(monkeypatch):
+    from helios_order_visibility.services.supplier import supplier_confirmation_view
+
+    fake, po, _ = fake_frappe(monkeypatch)
+    fake.db.rows[("Purchase Order", po.name)]["company"] = "EXM"
+    fake.db.rows[("Company", "EXM")] = {"company_name": "Example Manufacturing Oy"}
+    raw, _ = issue_token("Purchase Order", po.name, "supplier_confirmation", datetime.now(timezone.utc) + timedelta(days=1))
+    view = supplier_confirmation_view(raw)
+    assert view["company"] == "Example Manufacturing Oy"
+    assert view["status"] == "Pending"
+    assert view["requested_date"] == "2026-10-30"
+    assert [item["item_code"] for item in view["items"]] == ["SAMPLE-BRACKET"]

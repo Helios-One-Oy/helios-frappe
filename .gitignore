@@ -3,5 +3,5 @@ __pycache__/
 .pytest_cache/
 .venv/
 *.egg-info/
-proof/live/seed-runtime.json
+proof/**/seed-runtime.json
 dump.rdb
