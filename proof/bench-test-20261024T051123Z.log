@@ -1402,7 +1402,8 @@ Updating DocTypes for helios_order_visibility: [==============================  
 Updating DocTypes for helios_order_visibility: [========================================] 100%
 Updating Dashboard for helios_order_visibility
 clean_install_http_ui=BEGIN
-{"sample_label": "fictional sample data", "company": "M3 Fictional Manufacturing Oy", "supplier": "Northstar Precision (fictional)", "customer": "Acme Robotics (fictional)", "purchase_order": "M3-SUP-0042", "sales_order": "M3-CUS-0007", "supplier_token": "REDACTED_TOKEN", "customer_token": "REDACTED_TOKEN", "supplier_url": "http://helios.local:8000/helios/confirm/REDACTED_TOKEN", "customer_url": "http://helios.local:8000/helios/track/REDACTED_TOKEN", "supplier_status": "Confirmed", "tracking_status": "Active", "writeback": {"status": "Confirmed", "schedule_date": "2026-11-04", "idempotent": false}, "idempotent": {"status": "Confirmed", "schedule_date": "2026-11-04", "idempotent": true}}
+{"sample_label": "fictional sample data", "company": "M3 Fictional Manufacturing Oy", "supplier": "Northstar Precision (fictional)", "customer": "Acme Robotics (fictional)", "purchase_order": "M3-SUP-0042", "sales_order": "M3-CUS-0007", "supplier_token": "REDACTED_TOKEN", "customer_token": "REDACTED_TOKEN",
+  "supplier_url": "http://helios.local:8000/helios/confirm/REDACTED_TOKEN", "customer_url": "http://helios.local:8000/helios/track/REDACTED_TOKEN", "supplier_status": "Confirmed", "tracking_status": "Active", "writeback": {"status": "Confirmed", "schedule_date": "2026-11-04", "idempotent": false}, "idempotent": {"status": "Confirmed", "schedule_date": "2026-11-04", "idempotent": true}}
 {
   "supplier_get": 200,
   "supplier_post": 200,
