@@ -70,40 +70,16 @@ if [[ "${DAYTONA_CHILD:-}" == 1 ]]; then
   SERVER_PID=$!
   trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
   for i in $(seq 1 60); do
-    if curl -fsS http://127.0.0.1:8000/api/method/helios_order_visibility.api.get_supplier_confirmation >/dev/null 2>&1; then break; fi
+    if curl -fsS http://127.0.0.1:8000/helios/confirm >/dev/null 2>&1; then break; fi
     sleep 1
   done
-  python3 - "$ROOT/proof/live/seed-metadata.json" "$ROOT/proof/live/http-ui.log" <<'PY' | tee -a "$LOG"
-import json, pathlib, sys, urllib.parse, urllib.request
-meta = json.loads(pathlib.Path(sys.argv[1]).read_text())
-log = pathlib.Path(sys.argv[2])
-base = "http://127.0.0.1:8000"
-def request(path, data=None):
-    req = urllib.request.Request(base + path, data=data, method="POST" if data else "GET")
-    with urllib.request.urlopen(req) as response:
-        return response.status, response.read().decode()
-supplier = urllib.parse.quote(meta["supplier_token"])
-customer = urllib.parse.quote(meta["customer_token"])
-status, supplier_body = request("/api/method/helios_order_visibility.api.get_supplier_confirmation?token=" + supplier)
-assert status == 200 and "M3-SUP-0042" in supplier_body
-post = urllib.parse.urlencode({"token": meta["supplier_token"], "confirmed": "true", "schedule_date": "2026-11-04"}).encode()
-post_status, post_body = request("/helios/confirm", post)
-assert post_status == 200 and "Confirmed" in post_body
-tracking_status, tracking_body = request("/api/method/helios_order_visibility.api.get_customer_order_tracking?token=" + customer)
-assert tracking_status == 200 and "M3-CUS-0007" in tracking_body
-otd_status, otd_body = request("/helios/otd")
-assert otd_status == 200 and "M3-SUP-0042" in otd_body and "Supplier OTD" in otd_body
-log.write_text(json.dumps({"supplier_get": status, "supplier_post": post_status, "tracking_get": tracking_status, "otd_ui": otd_status, "writeback": "Confirmed", "sample_label": meta["sample_label"]}, indent=2) + "\n")
-print(log.read_text(), end="")
-PY
-  supplier_token=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["supplier_token"])' "$ROOT/proof/live/seed-metadata.json")
-  customer_token=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["customer_token"])' "$ROOT/proof/live/seed-metadata.json")
-chromium --headless --no-sandbox --disable-gpu --hide-scrollbars --window-size=1280,720 --screenshot="$ROOT/proof/screenshots/supplier-confirmation-1280.png" "http://127.0.0.1:8000/helios/confirm?token=$supplier_token" >/dev/null 2>&1
-chromium --headless --no-sandbox --disable-gpu --hide-scrollbars --window-size=390,844 --screenshot="$ROOT/proof/screenshots/supplier-confirmation-390.png" "http://127.0.0.1:8000/helios/confirm?token=$supplier_token" >/dev/null 2>&1
-chromium --headless --no-sandbox --disable-gpu --hide-scrollbars --window-size=1280,720 --screenshot="$ROOT/proof/screenshots/customer-tracking-1280.png" "http://127.0.0.1:8000/helios/track?token=$customer_token" >/dev/null 2>&1
-chromium --headless --no-sandbox --disable-gpu --hide-scrollbars --window-size=390,844 --screenshot="$ROOT/proof/screenshots/customer-tracking-390.png" "http://127.0.0.1:8000/helios/track?token=$customer_token" >/dev/null 2>&1
-chromium --headless --no-sandbox --disable-gpu --hide-scrollbars --window-size=1280,720 --screenshot="$ROOT/proof/screenshots/supplier-otd-1280.png" "http://127.0.0.1:8000/helios/otd" >/dev/null 2>&1
-chromium --headless --no-sandbox --disable-gpu --hide-scrollbars --window-size=390,844 --screenshot="$ROOT/proof/screenshots/supplier-otd-390.png" "http://127.0.0.1:8000/helios/otd" >/dev/null 2>&1
+  python3 "$ROOT/scripts/live-browser.py" | tee -a "$LOG"
+  # Proof artifacts are committed for review; remove replayable capability
+  # values while leaving routes, status codes and sample labels intact.
+  find "$ROOT/proof/live" -type f \( -name '*.log' -o -name '*.json' -o -name '*.html' -o -name '*.txt' \) -print0 | xargs -0 -r sed -E -i \
+    -e 's/(token=)[^&" <>]+/\1REDACTED_TOKEN/g' \
+    -e 's/(name="token" value=")[^"]+/\1REDACTED_TOKEN/g' \
+    -e 's/("(supplier_token|customer_token)"[[:space:]]*:[[:space:]]*")[^"]+/\1REDACTED_TOKEN/g'
   echo "screenshots=PASS" | tee -a "$LOG"
   set +e
   bench --site helios.local run-tests --app helios_order_visibility 2>&1 | tee -a "$LOG"
@@ -123,4 +99,4 @@ fi
  # drun mounts this repository as the command working directory.  Use a
  # relative path so the child does not try to resolve the host's absolute
  # /home/ubuntu path inside the sandbox.
-DRUN_BACKEND=fly drun --snapshot daytona-large --setup "sudo apt-get update -qq && sudo apt-get install -y -qq mariadb-server redis-server cron python3.13 python3.13-dev python3.13-venv build-essential nodejs npm yarnpkg chromium curl && sudo npm install -g yarn@1.22.22" -- env DAYTONA_CHILD=1 bash scripts/test-daytona.sh
+DRUN_BACKEND=fly drun --snapshot daytona-large --setup "sudo apt-get update -qq && sudo apt-get install -y -qq mariadb-server redis-server cron python3.13 python3.13-dev python3.13-venv python3-pip build-essential nodejs npm yarnpkg chromium curl && sudo npm install -g yarn@1.22.22 && python3 -m pip install --user --break-system-packages playwright" -- env DAYTONA_CHILD=1 bash scripts/test-daytona.sh

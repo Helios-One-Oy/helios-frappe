@@ -12,6 +12,15 @@
   "terms_url": "https://github.com/Helios-One-Oy/helios-frappe/blob/main/docs/terms-of-service.md",
   "privacy_url": "https://github.com/Helios-One-Oy/helios-frappe/blob/main/docs/privacy-policy.md",
   "logo_source": "logo.svg",
-  "screenshots": [],
+  "screenshots": [
+    "proof/screenshots/supplier-confirmation-1280.png",
+    "proof/screenshots/supplier-confirmation-390.png",
+    "proof/screenshots/customer-tracking-1280.png",
+    "proof/screenshots/customer-tracking-390.png",
+    "proof/screenshots/supplier-otd-1280.png",
+    "proof/screenshots/supplier-otd-390.png",
+    "proof/screenshots/late-lines-1280.png",
+    "proof/screenshots/late-lines-390.png"
+  ],
   "publishing_status": "draft; do not submit"
 }

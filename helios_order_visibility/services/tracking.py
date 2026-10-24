@@ -36,7 +36,7 @@ def ensure_tracking_link(doc, doctype):
     customer_email = field(doc, "contact_email") or field(doc, "customer_email") or ""
     raw, jti = issue_token(doctype, name, "customer_tracking", expires, {"customer_email": customer_email})
     base = public_base_url(frappe)
-    link = f"{base}/helios/track/{raw}"
+    link = f"{base}/helios/track?token={raw}"
     for key, value in {"helios_tracking_status": "Active", "helios_tracking_link": link}.items():
         if hasattr(doc, "db_set"):
             doc.db_set(key, value, update_modified=False)

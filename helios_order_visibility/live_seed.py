@@ -12,6 +12,10 @@ def _first(doctype: str, field: str, filters: dict | None = None):
 
 
 def run():
+    # Set the disposable proof origin before any submitted document hooks run.
+    # Those hooks persist the signed links on the PO/SO, so setting it after
+    # submission would leave one of the two records pointing at helios.local.
+    frappe.db.set_single_value("Helios Settings", "public_base_url", "http://127.0.0.1:8000")
     # A clean ERPNext install does not ship the standard warehouse types that
     # the Company on_update hook uses to create its defaults.
     for warehouse_type in ("Transit", "Stores", "Finished Goods", "Work In Progress"):
@@ -96,7 +100,7 @@ def run():
     if not frappe.db.exists("Purchase Order", po_name):
         po = frappe.get_doc({
             "doctype": "Purchase Order", "supplier": supplier.name,
-            "company": company, "transaction_date": "2026-10-20",
+            "company": company, "transaction_date": "2026-09-20",
             "items": [{"item_code": item_code, "qty": 24, "rate": 100,
                         "schedule_date": "2026-11-04", "warehouse": warehouse}],
         }).insert(ignore_permissions=True)
@@ -105,6 +109,19 @@ def run():
             po = frappe.get_doc("Purchase Order", po_name)
         po.submit()
     po = frappe.get_doc("Purchase Order", po_name)
+
+    late_po_name = "M3-SUP-0043"
+    if not frappe.db.exists("Purchase Order", late_po_name):
+        late_po = frappe.get_doc({
+            "doctype": "Purchase Order", "supplier": supplier.name,
+            "company": company, "transaction_date": "2026-09-20",
+            "items": [{"item_code": item_code, "qty": 8, "rate": 100,
+                        "schedule_date": "2026-10-01", "warehouse": warehouse}],
+        }).insert(ignore_permissions=True)
+        if late_po.name != late_po_name:
+            frappe.rename_doc("Purchase Order", late_po.name, late_po_name, force=True)
+            late_po = frappe.get_doc("Purchase Order", late_po_name)
+        late_po.submit()
 
     selling_price_list = _first("Price List", "name", {"selling": 1, "enabled": 1})
     if not selling_price_list:
@@ -131,36 +148,54 @@ def run():
         so.submit()
     so = frappe.get_doc("Sales Order", so_name)
 
-    frappe.db.set_single_value("Helios Settings", "public_base_url", "http://127.0.0.1:8000")
     # Ensure the hooks have materialised signed links, even if a site's submit
     # workflow was configured to skip application events.
-    from .services.supplier import ensure_confirmation, confirm_from_token
+    from .services.supplier import ensure_confirmation
     from .services.tracking import ensure_tracking_link
-    from .services.tokens import issue_token
+    from .services.tokens import revoke_token
+    for token_name in frappe.get_all("Helios Tracking Token", filters={
+        "reference_doctype": "Purchase Order", "reference_name": po.name,
+        "purpose": "supplier_confirmation", "status": "Active"}, pluck="name"):
+        revoke_token(token_name)
+    frappe.db.set_value("Purchase Order", po.name, {
+        "helios_confirmation_status": "Pending",
+        "helios_supplier_confirmed_at": None,
+        "helios_supplier_schedule_date": None,
+        "helios_confirmation_source": None,
+    }, update_modified=False)
+    for item in frappe.get_all("Purchase Order Item", filters={"parent": po.name}, pluck="name"):
+        frappe.db.set_value("Purchase Order Item", item, "schedule_date", "2026-11-04", update_modified=False)
     confirmation = ensure_confirmation(po)
     tracking = ensure_tracking_link(so, "Sales Order")
-    raw, _ = issue_token("Purchase Order", po.name, "supplier_confirmation",
-                         frappe.utils.add_days(frappe.utils.now_datetime(), 7),
-                         {"supplier_email": "buyer@northstar.example"})
-    first = confirm_from_token(raw, True, "2026-11-04", source="live-http-seed")
-    second = confirm_from_token(raw, True, "2026-11-04", source="live-http-seed")
     # Re-read after the writes so returned links are usable by the HTTP proof.
     po.reload(); so.reload()
     result = {
         "sample_label": "fictional sample data",
         "company": company, "supplier": supplier.name, "customer": customer_name,
         "purchase_order": po.name, "sales_order": so.name,
-        "supplier_token": confirmation.get("link", "").rsplit("/", 1)[-1],
-        "customer_token": tracking.get("link", "").rsplit("/", 1)[-1],
+        "supplier_token": confirmation.get("link", "").split("token=", 1)[-1],
+        "customer_token": tracking.get("link", "").split("token=", 1)[-1],
         "supplier_url": po.helios_confirmation_link,
         "customer_url": so.helios_tracking_link,
         "supplier_status": po.helios_confirmation_status,
         "tracking_status": so.helios_tracking_status,
-        "writeback": first, "idempotent": second,
+        "writeback": "pending_http_confirmation", "idempotent": "pending_http_replay",
     }
     proof_dir = os.environ.get("HELIOS_PROOF_DIR")
     if proof_dir:
         os.makedirs(proof_dir, exist_ok=True)
+        # Keep capability tokens available only to the in-run browser. The
+        # committed proof metadata and console log retain routes and statuses
+        # without publishing replayable guest credentials.
+        runtime_result = dict(result)
+        safe_result = dict(result)
+        for key in ("supplier_token", "customer_token"):
+            safe_result[key] = "REDACTED_TOKEN"
+        for key in ("supplier_url", "customer_url"):
+            safe_result[key] = safe_result[key].split("?token=", 1)[0] + "?token=REDACTED_TOKEN"
+        with open(os.path.join(proof_dir, "seed-runtime.json"), "w", encoding="utf-8") as fh:
+            json.dump(runtime_result, fh, indent=2, default=str)
         with open(os.path.join(proof_dir, "seed-metadata.json"), "w", encoding="utf-8") as fh:
-            json.dump(result, fh, indent=2, default=str)
+            json.dump(safe_result, fh, indent=2, default=str)
+        return safe_result
     return result

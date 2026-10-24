@@ -5,20 +5,12 @@
   "customer": "Acme Robotics (fictional)",
   "purchase_order": "M3-SUP-0042",
   "sales_order": "M3-CUS-0007",
-  "supplier_token": "1.eyJkb2N0eXBlIjoiUHVyY2hhc2UgT3JkZXIiLCJleHAiOjE3OTM0MjM2NDIsImp0aSI6IlBJckJJWE9BcE1oMmtGQUt5Nkl5REEiLCJuYW1lIjoiTTMtU1VQLTAwNDIiLCJwdXJwb3NlIjoic3VwcGxpZXJfY29uZmlybWF0aW9uIiwidiI6IjEifQ.39YkQqc4Wwqf-P-JzxTaYHPfStqF0O8g0KXQI1t_Lr0",
-  "customer_token": "1.eyJkb2N0eXBlIjoiU2FsZXMgT3JkZXIiLCJleHAiOjE4MDA1OTQ4NDUsImp0aSI6IjFjSHpjMG82TmVNTGtweEVjc0loQ2ciLCJuYW1lIjoiTTMtQ1VTLTAwMDciLCJwdXJwb3NlIjoiY3VzdG9tZXJfdHJhY2tpbmciLCJ2IjoiMSJ9.sdULlqRUvUzCVwPfhhEtu0nX-bfTRSzXo7GeUBKeF2A",
-  "supplier_url": "http://helios.local:8000/helios/confirm/1.eyJkb2N0eXBlIjoiUHVyY2hhc2UgT3JkZXIiLCJleHAiOjE3OTM0MjM2NDIsImp0aSI6IlBJckJJWE9BcE1oMmtGQUt5Nkl5REEiLCJuYW1lIjoiTTMtU1VQLTAwNDIiLCJwdXJwb3NlIjoic3VwcGxpZXJfY29uZmlybWF0aW9uIiwidiI6IjEifQ.39YkQqc4Wwqf-P-JzxTaYHPfStqF0O8g0KXQI1t_Lr0",
-  "customer_url": "http://helios.local:8000/helios/track/1.eyJkb2N0eXBlIjoiU2FsZXMgT3JkZXIiLCJleHAiOjE4MDA1OTQ4NDUsImp0aSI6IjFjSHpjMG82TmVNTGtweEVjc0loQ2ciLCJuYW1lIjoiTTMtQ1VTLTAwMDciLCJwdXJwb3NlIjoiY3VzdG9tZXJfdHJhY2tpbmciLCJ2IjoiMSJ9.sdULlqRUvUzCVwPfhhEtu0nX-bfTRSzXo7GeUBKeF2A",
-  "supplier_status": "Confirmed",
+  "supplier_token": "REDACTED_TOKEN",
+  "customer_token": "REDACTED_TOKEN",
+  "supplier_url": "http://127.0.0.1:8000/helios/confirm?token=REDACTED_TOKEN",
+  "customer_url": "http://127.0.0.1:8000/helios/track?token=REDACTED_TOKEN",
+  "supplier_status": "Pending",
   "tracking_status": "Active",
-  "writeback": {
-    "status": "Confirmed",
-    "schedule_date": "2026-11-04",
-    "idempotent": false
-  },
-  "idempotent": {
-    "status": "Confirmed",
-    "schedule_date": "2026-11-04",
-    "idempotent": true
-  }
+  "writeback": "pending_http_confirmation",
+  "idempotent": "pending_http_replay"
 }

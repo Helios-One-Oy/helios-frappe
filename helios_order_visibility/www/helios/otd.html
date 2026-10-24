@@ -1,5 +1,12 @@
-{% extends "templates/web.html" %}
-{% block page_content %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <style>html,body{margin:0;min-height:100%;background:#f7fafb}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#14212b}button,input,select,textarea{box-sizing:border-box}</style>
+</head>
+<body>
 <style>
   :root { color-scheme: light; --ink:#14212b; --muted:#60717c; --accent:#087f8c; --wash:#eef7f6; }
   .m3-shell { max-width: 980px; margin: 6vh auto; padding: 0 22px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color:var(--ink); }
@@ -11,4 +18,6 @@
 </style>
 <div class="m3-shell"><div class="m3-brand">Helios Order Visibility · review surface</div><div class="m3-card"><h1>Supplier OTD</h1><p class="m3-sub">Live report output from the fictional ERPNext order.</p>
 {% if error %}<p>{{ error }}</p>{% elif rows %}<table><thead><tr><th>Purchase order</th><th>Supplier</th><th>Item</th><th>Schedule</th><th>OTD</th></tr></thead><tbody>{% for row in rows %}<tr><td>{{ row.purchase_order }}</td><td>{{ row.supplier }}</td><td>{{ row.item_code }}</td><td>{{ row.schedule_date }}</td><td class="m3-open">{{ row.otd_status }}</td></tr>{% endfor %}</tbody></table>{% else %}<p>No rows.</p>{% endif %}<p class="m3-label">{{ sample_label }}</p></div></div>
-{% endblock %}
+
+</body>
+</html>

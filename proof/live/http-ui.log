@@ -1,8 +1,23 @@
 {
+  "anonymous_otd": 403,
   "supplier_get": 200,
-  "supplier_post": 200,
+  "supplier_ui_post": 200,
+  "supplier_http_post": 200,
+  "supplier_writeback": {
+    "purchase_order": "M3-SUP-0042",
+    "supplier": "Northstar Precision (fictional)",
+    "status": "Confirmed",
+    "schedule_date": "2026-11-04",
+    "expires_at": 1793429825
+  },
+  "supplier_replay": {
+    "status": "Confirmed",
+    "schedule_date": "2026-11-04",
+    "idempotent": true
+  },
   "tracking_get": 200,
   "otd_ui": 200,
-  "writeback": "Confirmed",
+  "late_lines_ui": 200,
+  "screenshots": "PASS",
   "sample_label": "fictional sample data"
 }

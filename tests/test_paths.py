@@ -130,7 +130,7 @@ def fake_frappe(monkeypatch):
 def test_supplier_link_confirmation_updates_po_line_and_audit(monkeypatch):
     fake, po, _ = fake_frappe(monkeypatch)
     issued = ensure_confirmation(po)
-    assert issued["link"].startswith("https://erp.example.test/helios/confirm/")
+    assert issued["link"].startswith("https://erp.example.test/helios/confirm?token=")
     raw, _ = issue_token("Purchase Order", po.name, "supplier_confirmation", datetime.now(timezone.utc) + timedelta(days=1))
     result = confirm_from_token(raw, True, "2026-11-04", source="link")
     assert result == {"status": "Confirmed", "schedule_date": "2026-11-04", "idempotent": False}
@@ -158,7 +158,7 @@ def test_customer_tracking_is_filtered_to_safe_fields(monkeypatch):
     issued = ensure_tracking_link(so, "Sales Order")
     raw, _ = issue_token("Sales Order", so.name, "customer_tracking", datetime.now(timezone.utc) + timedelta(days=1))
     snapshot = tracking_snapshot(raw)
-    assert issued["link"].startswith("https://erp.example.test/helios/track/")
+    assert issued["link"].startswith("https://erp.example.test/helios/track?token=")
     assert snapshot["customer"] == "Fictional Acme"
     assert snapshot["items"][0]["item_code"] == "SAMPLE-BRACKET"
     assert "rate" not in snapshot["items"][0]

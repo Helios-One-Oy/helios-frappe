@@ -11,7 +11,9 @@ from .tokens import TOKEN_DOCTYPE, decode_and_validate, issue_token, revoke_toke
 PO_PATTERN = re.compile(r"\b(?:PO[-\s]?[A-Z0-9-]+|Purchase\s+Order\s*[:#]?\s*(?:PO[-\s]?)?[A-Z0-9-]+)\b", re.I)
 DATE_PATTERN = re.compile(r"\b(20\d{2}-\d{2}-\d{2})\b")
 CONFIRM_WORDS = re.compile(r"\b(confirm(?:ed|ation)?|accept(?:ed|ance)?|yes|approved?)\b", re.I)
-REJECT_WORDS = re.compile(r"\b(reject(?:ed|ion)?|declin(?:e|ed)|no|cannot|can't)\b", re.I)
+# Do not treat ordinary prose such as "no problem" or a quoted "no-login
+# link" as a rejection. A reply must contain an explicit negative decision.
+REJECT_WORDS = re.compile(r"\b(reject(?:ed|ion)?|declin(?:e|ed)|cannot|can't|unable\s+to\s+(?:confirm|accept)|do\s+not\s+(?:confirm|accept)|not\s+(?:confirmed|accepted))\b", re.I)
 
 
 def _frappe():
@@ -77,7 +79,9 @@ def ensure_confirmation(doc):
     expires = now_utc() + timedelta(days=_get_expiry_days())
     raw, jti = issue_token("Purchase Order", po_name, "supplier_confirmation", expires, {"supplier_email": _supplier_email(doc)})
     base = public_base_url(frappe)
-    link = f"{base}/helios/confirm/{raw}"
+    # Frappe's public web pages receive the capability through form_dict. A
+    # query parameter keeps the saved link on the real, tested page route.
+    link = f"{base}/helios/confirm?token={raw}"
     values = {"helios_confirmation_status": "Pending", "helios_confirmation_link": link}
     for key, value in values.items():
         if hasattr(doc, "db_set"):

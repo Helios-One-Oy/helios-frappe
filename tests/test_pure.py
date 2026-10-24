@@ -45,6 +45,8 @@ def test_reply_parser_requires_explicit_confirmation_and_date():
     parsed = parse_confirmation_reply("Re: PO-2026-0042", "Confirmed. ETA: 2026-11-04")
     assert {k: parsed[k] for k in ("purchase_order", "decision", "schedule_date")} == {"purchase_order": "PO-2026-0042", "decision": "confirmed", "schedule_date": "2026-11-04"}
     assert parse_confirmation_reply("PO-2026-0042", "maybe next week")["decision"] is None
+    assert parse_confirmation_reply("Re: PO-2026-0042", "Confirmed, no problem. ETA 2026-11-04")["decision"] == "confirmed"
+    assert parse_confirmation_reply("Re: PO-2026-0042", "The no-login link is fine")["decision"] is None
 
 
 def test_signed_token_round_trip_and_tamper_rejection(monkeypatch):

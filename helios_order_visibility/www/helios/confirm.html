@@ -1,5 +1,12 @@
-{% extends "templates/web.html" %}
-{% block page_content %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <style>html,body{margin:0;min-height:100%;background:#f7fafb}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#14212b}button,input,select,textarea{box-sizing:border-box}</style>
+</head>
+<body>
 <style>
   :root { color-scheme: light; --ink:#14212b; --muted:#60717c; --accent:#087f8c; --wash:#eef7f6; }
   .m3-shell { max-width: 820px; margin: 6vh auto; padding: 0 22px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color:var(--ink); }
@@ -17,6 +24,18 @@
   {% if error %}<p class="m3-error">{{ error }}</p>{% elif confirmation %}
     <div class="m3-grid"><div class="m3-stat"><div class="m3-label">Purchase order</div><div class="m3-value">{{ confirmation.purchase_order }}</div></div><div class="m3-stat"><div class="m3-label">Supplier</div><div class="m3-value">{{ confirmation.supplier }}</div></div><div class="m3-stat"><div class="m3-label">Status</div><div class="m3-value m3-ok">{{ confirmation.status }}</div></div></div>
     <p class="m3-ok">{{ "Confirmation recorded." if result or confirmation.status == "Confirmed" else "Ready for confirmation." }}</p>
+    {% if not result and confirmation.status == "Pending" %}
+      <form method="post" class="m3-form">
+        <input type="hidden" name="token" value="{{ frappe.form_dict.get('token') }}">
+        <label>Decision<select name="confirmed"><option value="true">Confirm</option><option value="false">Reject</option></select></label>
+        <label>Schedule date<input type="date" name="schedule_date" value="{{ confirmation.schedule_date or '' }}" required></label>
+        <label>Note (optional)<textarea name="note" rows="3" placeholder="A short note for the buyer"></textarea></label>
+        <button type="submit">Record confirmation</button>
+      </form>
+    {% endif %}
   {% endif %}<p class="m3-label">{{ sample_label }}</p></div>
 </div>
-{% endblock %}
+<style>.m3-form{display:grid;gap:14px;margin-top:24px}.m3-form label{display:grid;gap:6px;font-weight:650}.m3-form input,.m3-form select,.m3-form textarea{border:1px solid #c9d9da;border-radius:9px;padding:10px;font:inherit}.m3-form button{justify-self:start;background:#087f8c;color:#fff;border:0;border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer}</style>
+
+</body>
+</html>
